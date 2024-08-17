@@ -11,23 +11,33 @@ let (>>>) p s () = if ssh p then s() else Tom (* valg eller ikke af en *)
 
 let (||*) ss () = vaelgfra ss ()      (* lige valg blandt alle *)
 
-(* lige valg blandt strenge, men undgå at vælge samme for ofte *)
-let mutable private valgNummer = 0
-let private sidstegang = Array.create 117 -999999
-let private rec vaelgny ss =
-    let _ = valgNummer <- valgNummer + 1
-    let mulig = vaelgfra ss
-    let klasse = hash mulig % 117
-    if sidstegang.[klasse] + 30 > valgNummer then
-        vaelgny ss
-    else
-        sidstegang.[klasse] <- valgNummer
-        Str mulig
+let private vaelgNyUdenGentagelserInstans = 
+    (* lige valg blandt strenge, men undgå at vælge samme for ofte *)
+    // i.e. der skal være mindst 30 andre valg før en gentagelse, hvis muligt.
+    let mutable valgNummer = 0
+    let  sidstegang = Array.create 117 -999999
+    let rec vaelgny ss =
+        valgNummer <- valgNummer + 1
+        let mulig = vaelgfra ss
+        // Looks like Polyhash.hash produced only postive hashes
+        let klasse = abs (hash mulig % 117)
+        printfn "%s -> %i" mulig klasse
+        printfn "%i" valgNummer
+        if sidstegang.[klasse] + 30 > valgNummer then
+            vaelgny ss
+        else
+            sidstegang.[klasse] <- valgNummer
+            Str mulig
+    fun ss () -> vaelgny ss
 
-let ||$* ss () = vaelgny ss
+// This level of custom operator is hard. Replacing ||$* here: 
+let vaelgNyUdenGentagelser  = vaelgNyUdenGentagelserInstans
 
+(*
 let (|||) s1 s2 () = vaelgfra [|s1; s2|] ()
-let $ s () = Str s
+
+// Again $ is not allowed in F#. Going with @@
+let (@@) s () = Str s
 
 (* afsnitsoverskrifter *)
 type item = int * string * ordsek
@@ -274,3 +284,7 @@ let rapport () =
                  &&& kolofon) ()
     Format.html (Str "Forslag til virtuelt center for" && center)
                 (indhold () && tekst)
+
+
+
+*)                
