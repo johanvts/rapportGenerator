@@ -33,34 +33,32 @@ let private vaelgNyUdenGentagelserInstans =
 // This level of custom operator is hard. Replacing ||$* here: 
 let vaelgNyUdenGentagelser  = vaelgNyUdenGentagelserInstans
 
-(*
-let (|||) s1 s2 () = vaelgfra [|s1; s2|] ()
+let (|||) s1 s2 () = vaelgfra [|s1; s2|] () (* lige valg blandt to   *)
 
-// Again $ is not allowed in F#. Going with @@
-let (@@) s () = Str s
+// Again $ is not allowed in F#. Going with s
+let s s () = Str s
 
 (* afsnitsoverskrifter *)
-type item = int * string * ordsek
-type afsnit = A of item * afsnit list
-type partial = afsnit list
+type private item = int * string * ordsek (* niveau * anker og titel *)
+type private afsnit = A of item * afsnit list
+type private partial = afsnit list
 
-let mutable niveau = 0
-let mutable overskrifter = ([] : partial)
+let mutable private niveau = 0 (* afsnittets niveau: 0, 1, 2, ... *)
+let mutable private overskrifter = ([] : partial)
 
-let overskrift niv s = 
+let private overskrift niv s = 
     match niv with
-    | 0 -> Format.overskrift0 s
-    | 1 -> Format.overskrift1 s
-    | _ -> Format.overskrift0 s
+        | 0 -> Format.overskrift0 s
+        | 1 -> Format.overskrift1 s
+        | _ -> failwith $"overskrift niveau {niv} ikke understøttet."  
 
-let rec slutunder (partial : partial) : partial = 
+let rec private slutunder (partial : partial) : partial = 
     let rec loop remaining sidste res =
         match remaining with
         | [] -> res
         | (A((niv, anker, ovs), [])) :: rest when niv = sidste ->
             loop rest sidste (A((niv, anker, ovs), res) :: res)
         | a :: rest -> loop rest sidste (a :: res)
-
     loop partial niveau []
 
 let begyndafsnit () = niveau <- niveau + 1
@@ -73,7 +71,7 @@ let nytafsnit (ovsk : ordsek) =
     let (anker, ovsk') = Format.lavAnker ovsk
     overskrifter <- A((niveau, anker, ovsk), []) :: overskrifter
     overskrift niveau ovsk'
-
+(*
 let rec afsnit (A((niv, anker, s), uafs)) =
     Format.li (Format.href anker s) && underafsnit uafs
 and underafsnit uafs =
