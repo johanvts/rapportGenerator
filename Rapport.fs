@@ -5,7 +5,7 @@ open Basis
 
 // &&& already in used as OrdSek operator as && is reserved in F#
 // Hence ml source operator &&& is @@@ in F# version, and && is &&&
-let (@@@) s1 s2 = s1 () &&& s2 ()     (* konkatenering af to   *)
+let (@@@) s1 s2 () = s1 () &&& s2 ()     (* konkatenering af to   *)
 let (&&*) ss () =  List.fold (fun res s -> res &&& (s ())) Tom ss
 let (>>>) p s () = if ssh p then s() else Tom (* valg eller ikke af en *)
 
@@ -71,53 +71,63 @@ let nytafsnit (ovsk : ordsek) =
     let (anker, ovsk') = Format.lavAnker ovsk
     overskrifter <- A((niveau, anker, ovsk), []) :: overskrifter
     overskrift niveau ovsk'
-(*
-let rec afsnit (A((niv, anker, s), uafs)) =
-    Format.li (Format.href anker s) && underafsnit uafs
-and underafsnit uafs =
-    match uafs with
-    | [] -> Tom
-    | _ -> Format.ul (List.foldBack (fun uaf res -> OrSeq(res, afsnit uaf)) uafs Tom)
 
 let indhold () =
-    overskrift 0 (Str "Indholdsfortegnelse") && underafsnit (List.rev overskrifter) && Format.streg ()
+    let rec afsnit (A((niv, anker, s), uafs)) =
+        Format.li (Format.href anker s) &&& underafsnit uafs
+    and underafsnit = function
+        | [] -> Tom
+        | uafs -> Format.ul (List.fold (fun res uaf -> res &&& afsnit uaf) Tom uafs)
 
+    overskrift 0 (Str "IndholdsFortegnelse")
+    &&& underafsnit (List.rev overskrifter)
+    &&& Format.streg ()
+        
 let generator = "http://www.matfys.kvl.dk/~sestoft/center.html"
 
 let kolofon =
-    Format.streg 
-    &&& (fun () -> nytafsnit (fun() -> Str "Kolofon"))
-    &&& fun () -> Str ("Dette er forslag nummer " + skrivseed() + " produceret den " + Format.dato () + " af den fuldautomatiske rapportgenerator ved " + Format.href generator generator + ". Rapporten er trykt pÃ¥ genbrugspapir og overholder gÃ¦ldende EU-normer for klarhed og relevans.")
+    (Format.streg 
+    @@@ (nytafsnit << s"Kolofon"))
+    @@@ s"Dette er forslag nummer" @@@ Basis.skrivseed
+//    @@@ s"produceret den" @@@ Format.dato
+    @@@ s"af den fuldautomatiske rapportgenerator"
+    @@@ s"ved" 
+//    @@@ Format.href generator o s generator
+    @@@ s"."
+    @@@ s"Rapporten er trykt på genbrugspapir" 
+    @@@ s"og overholder gældende EU-normer for klarhed og relevans."
 
 let forfattere () =
     nytafsnit (Str "Appendiks: Arbejdsgruppens medlemmer")
-    && Str "Arbejdsgruppen bag rapporten bestod af"
-    && Format.ul (mksek (5 + terning 5) 
-                        (fun () -> Format.li (Format.begyndelse (Navne.person()))))
-    && Format.afsnit ()
-    && Str "Endvidere rettes en tak til" 
-    && Navne.person () && Str "og" && Navne.person () 
-    && Str "for konstruktiv kritik." 
+    &&& Str "Arbejdsgruppen bag rapporten bestod af"
+//    &&& Format.ul (mksek (5 + terning 5) 
+//                        (Format.li << Format.begyndelse << Navne.person))
+    &&& Format.afsnit ()
+    &&& Str "Endvidere rettes en tak til" 
+//    &&& Navne.person () &&& Str "og" &&& Navne.person () 
+    &&& Str "for konstruktiv kritik." 
 
-let nominal () = Led.nominal None |> fun (_,_,s) -> s
+ 
+//let nominal () = Led.nominal None |> fun (_,_,s) -> s
 
 let adverbial = 
-    0.3 >>> (||$* [| "af omveje"; "aldrig"; "blot"; "delvis"; 
-                    "dybest set"; "effektivt"; "eventuelt"; "fortrinsvis"; 
-                    "fÃ¸rst og fremmest"; "generelt";
-                    "gradvis"; "ikke"; "ikke nÃ¸dvendigvis"; 
-                    "indadtil"; "indirekte"; "i det lange lÃ¸b"; 
-                    "i ringe grad";
-                    "isoleret set";
-                    "kun"; "kun sjÃ¦ldent"; "langt oftere"; "lÃ¸st sagt";
-                    "med tiden"; "midlertidigt"; "muligvis";
-                    "mÃ¥ske"; "mÃ¥ske ikke"; "noget indirekte"; "nok ikke"; 
-                    "ofte"; "partielt"; "potentielt"; 
-                    "ret typisk"; "ret utvetydigt";  
-                    "sjÃ¦ldent"; "sÃ¥ at sige"; 
-                    "temmelig entydigt"; "tendentielt"; 
-                    "utvivlsomt"; "kun vanskeligt"; "vÃ¦sentligst" |])
-
+    0.3 >>> vaelgNyUdenGentagelser
+    [| "af omveje"; "aldrig"; "blot"; "delvis"; 
+     "dybest set"; "effektivt"; "eventuelt"; "fortrinsvis"; 
+     "først og fremmest"; "generelt";
+     "gradvis"; "ikke"; "ikke nødvendigvis"; 
+     "indadtil"; "indirekte"; "i det lange løb"; 
+     "i ringe grad";
+     "isoleret set";
+     "kun"; "kun sjÃ¦ldent"; "langt oftere"; "løst sagt";
+     "med tiden"; "midlertidigt"; "muligvis";
+     "mÃ¥ske"; "måske ikke"; "noget indirekte"; "nok ikke"; 
+     "ofte"; "partielt"; "potentielt"; 
+     "ret typisk"; "ret utvetydigt";  
+     "sjældent"; "så at sige"; 
+     "temmelig entydigt"; "tendentielt"; 
+     "utvivlsomt"; "kun vanskeligt"; "væsentligst" |])
+(*
 let verbPraesIndAkt = 
     ||$* [| "accentuerer"; "afmystificerer"; "angÃ¥r"; "belyser"; "begrunder"; 
            "berÃ¸rer"; "beskriver"; 
