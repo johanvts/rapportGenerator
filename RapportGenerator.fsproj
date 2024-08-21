@@ -7,6 +7,10 @@
 
   <ItemGroup>
     <Compile Include="Basis.fs" />
+    <Compile Include="Smaaord.fs" />
+    <Compile Include="Substant.fs" />
+    <Compile Include="Adj.fs" />
+    <Compile Include="Led.fs" />
     <Compile Include="Format.fs" />
     <Compile Include="Rapport.fs" />
   </ItemGroup>

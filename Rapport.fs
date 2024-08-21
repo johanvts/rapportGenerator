@@ -108,11 +108,11 @@ let forfattere () =
     &&& Str "for konstruktiv kritik." 
 
  
-//let nominal () = Led.nominal None |> fun (_,_,s) -> s
+//let nominal () = Led.nominal None |> fun (_,_,s) -> s,
 
 let adverbial = 
     0.3 >>> vaelgNyUdenGentagelser
-             [| "af omveje"; "aldrig"; "blot"; "delvis"; 
+            [|"af omveje"; "aldrig"; "blot"; "delvis"; 
               "dybest set"; "effektivt"; "eventuelt"; "fortrinsvis"; 
               "først og fremmest"; "generelt";
               "gradvis"; "ikke"; "ikke nødvendigvis"; 
@@ -126,31 +126,31 @@ let adverbial =
               "ret typisk"; "ret utvetydigt";  
               "sjældent"; "så at sige"; 
               "temmelig entydigt"; "tendentielt"; 
-              "utvivlsomt"; "kun vanskeligt"; "væsentligst" |]
-(*
+              "utvivlsomt"; "kun vanskeligt"; "væsentligst"|]
+              
 let verbPraesIndAkt = 
-    ||$* [| "accentuerer"; "afmystificerer"; "angÃ¥r"; "belyser"; "begrunder"; 
-           "berÃ¸rer"; "beskriver"; 
-           "besvÃ¦rliggÃ¸r"; "effektiviserer"; "eksternaliserer"; 
-           "erstatter";
-           "forandrer"; "foregriber"; "fornyer";
-           "forstÃ¦rker"; "fortrÃ¦nger"; "fremmer"; "hÃ¦mmer";
-           "implicerer"; "involverer"; "karakteriserer"; 
-           "kendetegner"; "klarlÃ¦gger";
-           "komplicerer";
-           "modarbejder"; "moderniserer"; "modsvarer"; 
-           "omdefinerer";
-           "problematiserer"; "profilerer"; "pÃ¥virker"; 
-           "reducerer";
-           "styrker"; "stÃ¸tter"; "svÃ¦kker"; "udnytter"; "udvikler";
-           "understÃ¸tter"; "vedrÃ¸rer" |]
-
+    vaelgNyUdenGentagelser [|"accentuerer", "afmystificerer", "angår", "belyser", "begrunder", 
+           "berører", "beskriver", 
+           "besværliggør", "effektiviserer", "eksternaliserer", 
+           "erstatter",
+           "forandrer", "foregriber", "fornyer",
+           "forstærker", "fortrænger", "fremmer", "hæmmer",
+           "implicerer", "involverer", "karakteriserer", 
+           "kendetegner", "klarlægger",
+           "komplicerer",
+           "modarbejder", "moderniserer", "modsvarer", 
+           "omdefinerer",
+           "problematiserer", "profilerer", "påvirker", 
+           "reducerer",
+           "styrker", "støtter", "svækker", "udnytter", "udvikler",
+           "understøtter", "vedrører"|]
+           
 let konjunktion =
-    ||$* [| "da"; "da"; "eftersom"; "eftersom"; "fordi"; "forudsat"; 
-           "hvis"; "ikke mindst fordi"; "mens"; "netop fordi";
-           "nÃ¥r"; "nÃ¥r blot"; "pÃ¥ trods af at"; 
-           "selvom"; "selvom"; "skÃ¸nt"; "sÃ¥fremt" |]
-
+    vaelgNyUdenGentagelser [|"da", "da", "eftersom", "eftersom", "fordi", "forudsat", 
+           "hvis", "ikke mindst fordi", "mens", "netop fordi",
+           "når", "når blot", "på trods af at", 
+           "selvom", "selvom", "skønt", "såfremt"|]
+           
 let ledsaetning =
     nominal &&& adverbial &&& verbPraesIndAkt &&& nominal
 
