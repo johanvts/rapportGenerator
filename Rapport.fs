@@ -129,27 +129,27 @@ let adverbial =
               "utvivlsomt"; "kun vanskeligt"; "væsentligst"|]
               
 let verbPraesIndAkt = 
-    vaelgNyUdenGentagelser [|"accentuerer", "afmystificerer", "angår", "belyser", "begrunder", 
-           "berører", "beskriver", 
-           "besværliggør", "effektiviserer", "eksternaliserer", 
-           "erstatter",
-           "forandrer", "foregriber", "fornyer",
-           "forstærker", "fortrænger", "fremmer", "hæmmer",
-           "implicerer", "involverer", "karakteriserer", 
-           "kendetegner", "klarlægger",
-           "komplicerer",
-           "modarbejder", "moderniserer", "modsvarer", 
-           "omdefinerer",
-           "problematiserer", "profilerer", "påvirker", 
-           "reducerer",
-           "styrker", "støtter", "svækker", "udnytter", "udvikler",
-           "understøtter", "vedrører"|]
+    vaelgNyUdenGentagelser [|"accentuerer"; "afmystificerer"; "angår"; "belyser"; "begrunder"; 
+           "berører"; "beskriver"; 
+           "besværliggør"; "effektiviserer"; "eksternaliserer"; 
+           "erstatter";
+           "forandrer"; "foregriber"; "fornyer";
+           "forstærker"; "fortrænger"; "fremmer"; "hæmmer";
+           "implicerer"; "involverer"; "karakteriserer"; 
+           "kendetegner"; "klarlægger";
+           "komplicerer";
+           "modarbejder"; "moderniserer"; "modsvarer"; 
+           "omdefinerer";
+           "problematiserer"; "profilerer"; "påvirker"; 
+           "reducerer";
+           "styrker"; "støtter"; "svækker"; "udnytter"; "udvikler";
+           "understøtter"; "vedrører"|]
            
 let konjunktion =
-    vaelgNyUdenGentagelser [|"da", "da", "eftersom", "eftersom", "fordi", "forudsat", 
-           "hvis", "ikke mindst fordi", "mens", "netop fordi",
-           "når", "når blot", "på trods af at", 
-           "selvom", "selvom", "skønt", "såfremt"|]
+    vaelgNyUdenGentagelser [|"da"; "da"; "eftersom"; "eftersom"; "fordi"; "forudsat"; 
+           "hvis"; "ikke mindst fordi"; "mens"; "netop fordi";
+           "når"; "når blot"; "på trods af at"; 
+           "selvom"; "selvom"; "skønt"; "såfremt"|]
            
 let ledsaetning =
     nominal &&& adverbial &&& verbPraesIndAkt &&& nominal
