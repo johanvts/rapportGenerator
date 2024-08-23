@@ -24,16 +24,16 @@ let nominal formkrav =
             Tom
 
     let possesiv () = 
-        Substant.possesiv (Substant.vaelg (Some (bes, ent)).Item3)
+        Substant.possesiv (Substant.vaelg (Some (Bes, Ent))).Item3
 
     let nled = 
         match form with
-        | (ubs, flt) ->
+        | (Ubs, Flt) ->
             if ssh 0.5 then
-                Smaaord.artikel ((bes, flt), koen)
-                && advadj (bes, flt) koen 
-                && nom 
-                && saadan ()
+                Smaaord.artikel ((Bes, Flt), koen)
+                &&& advadj (Bes, Flt) koen 
+                &&& nom 
+                &&& saadan ()
             else
                 (if ssh 0.4 then
                     possesiv ()
@@ -41,26 +41,25 @@ let nominal formkrav =
                     Str (vaelgfra [| "visse"; "nogle"; "alle"; "samtlige"; "forskellige"; "andre"; "enkelte" |])
                  else 
                     Tom)
-                && advadj form koen
-                && nom
-        | (ubs, ent) ->
+                &&& advadj form koen
+                &&& nom
+        | (Ubs, Ent) ->
             if taellelig then 
                 if ssh 0.4 then
                     Smaaord.artikel ((bes, ent), koen)
-                    && advadj (bes, ent) koen
-                    && nom 
-                    && saadan ()
+                    &&& advadj (bes, ent) koen
+                    &&& nom 
+                    &&& saadan ()
                 else if ssh 0.4 then
                     Smaaord.artikel (form, koen) 
-                    && advadj form koen
-                    && nom
+                    &&& advadj form koen
+                    &&& nom
                 else
                     possesiv ()
-                    && advadj (bes, ent) koen
-                    && nom
+                    &&& advadj (bes, ent) koen
+                    &&& nom
             else 
-                advadj form koen && nom
-        | (bes, _) ->
-            nom && saadan ()
-    
+                advadj form koen &&& nom
+        | (Bes, _) ->
+            nom &&& saadan ()
     (tal, koen, nled)

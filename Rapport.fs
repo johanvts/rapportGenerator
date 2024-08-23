@@ -9,7 +9,7 @@ let (@@@) s1 s2 () = s1 () &&& s2 ()     (* konkatenering af to   *)
 let (&&*) ss () =  List.fold (fun res s -> res &&& (s ())) Tom ss
 let (>>>) p s () = if ssh p then s() else Tom (* valg eller ikke af en *)
 
-let (||*) ss () = vaelgfra ss ()      (* lige valg blandt alle *)
+let vaelgLige ss () = vaelgfra ss ()      (* lige valg blandt alle *)
 
 let private vaelgNyUdenGentagelserInstans = 
     (* lige valg blandt strenge, men undgå at vælge samme for ofte *)
@@ -31,7 +31,7 @@ let private vaelgNyUdenGentagelserInstans =
     fun ss () -> vaelgny ss
 
 // This level of custom operator is hard. Replacing ||$* here: 
-let vaelgNyUdenGentagelser  = vaelgNyUdenGentagelserInstans
+let vaelgNyUg  = vaelgNyUdenGentagelserInstans
 
 let (|||) s1 s2 () = vaelgfra [|s1; s2|] () (* lige valg blandt to   *)
 
@@ -108,10 +108,10 @@ let forfattere () =
     &&& Str "for konstruktiv kritik." 
 
  
-//let nominal () = Led.nominal None |> fun (_,_,s) -> s,
+let nominal () = (Led.nominal None).Item3
 
 let adverbial = 
-    0.3 >>> vaelgNyUdenGentagelser
+    0.3 >>> vaelgNyUg
             [|"af omveje"; "aldrig"; "blot"; "delvis"; 
               "dybest set"; "effektivt"; "eventuelt"; "fortrinsvis"; 
               "først og fremmest"; "generelt";
@@ -129,7 +129,7 @@ let adverbial =
               "utvivlsomt"; "kun vanskeligt"; "væsentligst"|]
               
 let verbPraesIndAkt = 
-    vaelgNyUdenGentagelser [|"accentuerer"; "afmystificerer"; "angår"; "belyser"; "begrunder"; 
+    vaelgNyUg [|"accentuerer"; "afmystificerer"; "angår"; "belyser"; "begrunder"; 
            "berører"; "beskriver"; 
            "besværliggør"; "effektiviserer"; "eksternaliserer"; 
            "erstatter";
@@ -146,7 +146,7 @@ let verbPraesIndAkt =
            "understøtter"; "vedrører"|]
            
 let konjunktion =
-    vaelgNyUdenGentagelser [|"da"; "da"; "eftersom"; "eftersom"; "fordi"; "forudsat"; 
+    vaelgNyUg [|"da"; "da"; "eftersom"; "eftersom"; "fordi"; "forudsat"; 
            "hvis"; "ikke mindst fordi"; "mens"; "netop fordi";
            "når"; "når blot"; "på trods af at"; 
            "selvom"; "selvom"; "skønt"; "såfremt"|]
@@ -161,30 +161,35 @@ let hovedsaetning =
     nominal &&& verbPraesIndAkt &&& adverbial &&& nominal
 
 let konstatering = 
-    (||* ( [|
-        fun () -> Str "det er" &&& (||$* [| "beklageligt"; "bevist"; "forstÃ¥eligt"; 
+    (vaelgLige [| s"det er" &&& (vaelgNyUg [| "beklageligt"; "bevist"; "forståeligt"; 
                                           "klart"; "indiskutabelt"; 
-                                          "nÃ¸dvendigt"; "oplagt"; "pÃ¥faldende"; "velkendt" |]),
-        (||$* [| "anerkendte"; "enkelte"; "de fleste"; "danske"; "isolerede"; 
-                 "omhyggelige";  
-                 "samtlige"; "trovÃ¦rdige"; "uafhÃ¦ngige"; 
-                 "udenlandske"; "visse"; "vores" |])
-              &&& (||$* [| "analyser"; "forskere"; "iagttagere"; "resultater";
-                         "studier"; "undersÃ¸gelser" |])
-              &&& (||$* [| "antyder"; "demonstrerer"; "fastslÃ¥r"; 
-                         "lader formode"; "pÃ¥peger"; "viser" |])
-              ]))
-    &&& fun () -> Str "at" 
-    &&& ledsaetning
-    ||| hovedsaetning)
-    &&& (||* [|
-        fun () -> Str "," &&& konjunktion &&& ledsaetning
-                &&& (fun () -> if ssh 0.05 then Str (", og " + konjunktion()) &&& ledsaetning else Tom),
-        fun () -> Str "," &&& ((Str "der") ||| (Str "som")) &&& (if ssh 0.5 then ||$* [| "af denne Ã¥rsag"; "derfor"; "fÃ¸lgelig"; 
-                                       "samtidig"; "sidelÃ¸bende"; 
-                                       "sÃ¥ledes"; "trods dette" |] &&& adverbial &&& verbPraesIndAkt &&& nominal else Tom)
-        ,fun () -> if ssh 0.3 then Str "." &&& Str "For det fÃ¸rste fordi" &&& ledsaetning &&& Str "," &&& Str "og for det andet fordi" &&& ledsaetning else Tom
-        ]))
+                                          "nødvendigt"; "oplagt"; "påfaldende"; "velkendt" |]);
+                vaelgNyUg [| "anerkendte"; "enkelte"; "de fleste"; "danske"; "isolerede"; 
+                           "omhyggelige";  
+                           "samtlige"; "troværdige"; "uafhængige"; 
+                           "udenlandske"; "visse"; "vores" |]
+              &&& vaelgNyUg [| "analyser"; "forskere"; "iagttagere"; "resultater";
+                             "studier"; "undersøgelser" |]
+              &&& vaelgNyUg [| "antyder"; "demonstrerer"; "fastslår"; 
+                             "lader formode"; "påpeger"; "viser" |]
+              |]
+     &&& s"at" 
+     &&& ledsaetning
+     ||| hovedsaetning)
+(*     &&& vaelgLige [| s"," &&& konjunktion &&& ledsaetning
+                          &&& 0.05 >>>
+                                (s"," &&& s"og " &&& konjunktion &&& ledsaetning);
+                      s","
+                           &&& (s"der" ||| s"som")
+                           &&& 0.5 >>> vaelgNyUg [| "af denne årsag"; "derfor"; "følgelig"; 
+                                       "samtidig"; "sideløbende"; 
+                                       "således"; "trods dette" |]
+                           &&& adverbial &&& verbPraesIndAkt &&& nominal;
+                    0.3 >>>(s"."
+                            &&& s"For det første fordi" &&& ledsaetning
+                            &&& s","
+                            &&& s"og for det andet fordi" &&& ledsaetning)
+                 |]
 
 let konstatering = fun () -> Format.begyndelse (konstatering ()) && Str "."
 
@@ -192,14 +197,14 @@ let raesonnement =
     konjunktion
     &&& ledsaetning
     &&& Str ","
-    &&& ((||$* [| "bÃ¸r"; "kan"; "mÃ¥"; "skal" |]) &&& Str "det"
-         &&& (||$* [| "antages"; "betones"; "betvivles"; "forudsÃ¦ttes";
+    &&& ((vaelgNyUg [| "bør"; "kan"; "må"; "skal" |]) &&& Str "det"
+         &&& (vaelgNyUg [| "antages"; "betones"; "betvivles"; "forudsættes";
                      "konstateres"; "pointeres"; 
-                     "pÃ¥peges"; "understreges" |])
-         ||| (||$* [| "bÃ¸r"; "kan"; "mÃ¥"; "skal" |]) 
-             &&& (||$* [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |]) 
-             &&& (||$* [| "acceptere"; "anerkende"; "antage"; "beklage"; 
-                        "sikre"; "forudsÃ¦tte"; "konstatere" |]))
+                     "påpeges"; "understreges" |])
+         ||| (vaelgNyUg [| "bør"; "kan"; "må"; "skal" |]) 
+             &&& (vaelgNyUg [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |]) 
+             &&& (vaelgNyUg [| "acceptere"; "anerkende"; "antage"; "beklage"; 
+                        "sikre"; "forudsætte"; "konstatere" |]))
     &&& Str "at" 
     &&& (ledsaetning
          ||| Str "dette" &&& adverbial &&& verbPraesIndAkt &&& nominal)
@@ -207,20 +212,20 @@ let raesonnement =
 let raesonnement = fun () -> Format.begyndelse (raesonnement ()) && Str "."
 
 let konsekvens =
-    (||$* [|Str "det" 
-            &&& (||$* [| "fÃ¸lger"; "indses"; "konkluderes"; "ses" |]),
-          (||$* [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |])
-             &&& (||$* [| "konkluderer"; "ser"; "slutter" |]),
-          Str "der" &&& Str "gÃ¦lder"
+    (vaelgNyUg [|Str "det" 
+            &&& (vaelgNyUg [| "følger"; "indses"; "konkluderes"; "ses" |]),
+          (vaelgNyUg [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |])
+             &&& (vaelgNyUg [| "konkluderer"; "ser"; "slutter" |]),
+          Str "der" &&& Str "gælder"
          ])
-    &&& (||$* [| "altsÃ¥"; "da"; "derfor"; "endda"; "endvidere"; 
-                 "nu"; "straks"; "sÃ¥ledes"; "tillige";
+    &&& (vaelgNyUg [| "altså"; "da"; "derfor"; "endda"; "endvidere"; 
+                 "nu"; "straks"; "således"; "tillige";
                  "uden videre"; "ret umiddelbart"; "umiddelbart" |])
     &&& Str "," &&& Str "at"
     &&& ledsaetning
     &&& (fun () -> if ssh 0.7 then Str "," &&& Str "og" &&& Str "at" &&& ledsaetning else Tom)
-    ||| (||$* [| "altsÃ¥"; "af disse grunde"; "derfor"; "klart nok";
-               "fÃ¸lgelig"; "sÃ¥ledes" |])
+    ||| (vaelgNyUg [| "altså"; "af disse grunde"; "derfor"; "klart nok";
+               "følgelig"; "således" |])
         &&& ledsaetning2
 
 let konsekvens = fun () -> Format.begyndelse (konsekvens ()) && Str "."
@@ -237,7 +242,7 @@ let mkafsnit () =
     Format.afsnit ()
     && (fun () -> nytafsnit (Format.begyndelse (nominal ())))
     && konstatering ()
-    && mksek (3 + terning 5) (||* [| konstatering; raesonnement; konsekvens |])
+    && mksek (3 + terning 5) (vaelgLige [| konstatering; raesonnement; konsekvens |])
     && (fun () -> if ssh 0.25 then billede "lagkage"() ||| billede "kurver"() else Tom)
 
 let baggrund () = 
@@ -253,22 +258,22 @@ let centernavn = fun () -> titelnom () && Str "og" && titelnom ()
 
 let samarbejde =
     Format.afsnit
-    &&& Str "Centret vil vÃ¦re en oplagt partner for det nyligt" 
-    &&& Str "foreslÃ¥ede center for" &&& centernavn () &&& Str "," 
-    &&& Str "ligesom der bÃ¸r kunne opnÃ¥s en frugtbar symbiose med"
+    &&& Str "Centret vil være en oplagt partner for det nyligt" 
+    &&& Str "foreslåede center for" &&& centernavn () &&& Str "," 
+    &&& Str "ligesom der bør kunne opnås en frugtbar symbiose med"
     &&& Str "centret for" &&& centernavn () &&& Str "."
 
 let oprettelse center =
     fun () -> Format.begyndelse (
-        ( ||$* [|"de anfÃ¸rte"; "ovenstÃ¥ende"; "de opregnede"]
-          &&& ||$* [|"argumenter"; "betragtninger"; "forhold"; "grunde";
+        ( vaelgNyUg [|"de anførte"; "ovenstående"; "de opregnede"]
+          &&& vaelgNyUg [|"argumenter"; "betragtninger"; "forhold"; "grunde";
                     "konstateringer"; "overvejelser"; 
-                    "rÃ¦sonnementer"]
-          &&& ||$* [|"fÃ¸rer"; "leder"]
-          &&& (fun () -> if ssh 0.5 then ||$* [|"logisk"; "nÃ¸dvendigvis"; "os"; "uomgÃ¦ngeligt"] else Tom)
+                    "ræsonnementer"]
+          &&& vaelgNyUg [|"fører"; "leder"]
+          &&& (fun () -> if ssh 0.5 then vaelgNyUg [|"logisk"; "nødvendigvis"; "os"; "uomgængeligt"] else Tom)
           &&& (fun () -> if ssh 0.3 then Str "frem" else Tom)
           &&& Str "til den konklusion at der" 
-          &&& ||$* [|"er behov for"; "mÃ¥ oprettes"; "bÃ¸r etableres"]
+          &&& vaelgNyUg [|"er behov for"; "må oprettes"; "bør etableres"]
           &&& Str "et virtuelt center for" &&& center )
           &&& Str ".")
 
