@@ -46,8 +46,8 @@ let nominal formkrav =
         | (Ubs, Ent) ->
             if taellelig then 
                 if ssh 0.4 then
-                    Smaaord.artikel ((bes, ent), koen)
-                    &&& advadj (bes, ent) koen
+                    Smaaord.artikel ((Bes, Ent), koen)
+                    &&& advadj (Bes, Ent) koen
                     &&& nom 
                     &&& saadan ()
                 else if ssh 0.4 then
@@ -56,7 +56,7 @@ let nominal formkrav =
                     &&& nom
                 else
                     possesiv ()
-                    &&& advadj (bes, ent) koen
+                    &&& advadj (Bes, Ent) koen
                     &&& nom
             else 
                 advadj form koen &&& nom

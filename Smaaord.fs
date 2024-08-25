@@ -1,4 +1,4 @@
-Module Smaaord
+module Smaaord
 
 open Basis
 
@@ -11,8 +11,8 @@ let artikel = function
   | ((bes, flt), _  ) -> Str "de"
 
 let adverbier =
-    [|"ekstremt", "ofte", "helt", "klart",
-      "meget", "muligvis", "normalt",
-      "tilstrækkeligt", "typisk", "udpræget", "udtalt"|]
+    [|"ekstremt"; "ofte"; "helt"; "klart";
+      "meget"; "muligvis"; "normalt";
+      "tilstrækkeligt"; "typisk"; "udpræget"; "udtalt"|]
 
 let vaelgadv () = Str (vaelgfra adverbier)
