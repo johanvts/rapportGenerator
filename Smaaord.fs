@@ -13,6 +13,6 @@ let artikel = function
 let adverbier =
     [|"ekstremt"; "ofte"; "helt"; "klart";
       "meget"; "muligvis"; "normalt";
-      "tilstrækkeligt"; "typisk"; "udpræget"; "udtalt"|]
+      "tilstrÃ¦kkeligt"; "typisk"; "udprÃ¦get"; "udtalt"|]
 
 let vaelgadv () = Str (vaelgfra adverbier)
