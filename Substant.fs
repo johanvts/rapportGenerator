@@ -4,7 +4,7 @@ open Basis
 
 type substantiv =
     RegS of genus * bool * string * string * string * string * (string array)
-         (* artk    bes?   ubs/en   bes/en   ubs/fl   bes/fl   præfixer *)    
+         (* artk    bes?   ubs/en   bes/en   ubs/fl   bes/fl   prÃ¦fixer *)    
 
 let f = false
 let t = true
@@ -41,7 +41,7 @@ let substantiver = [|
  RegS (Fk,  t, "gruppe", "-n", "-r", "-ne", 
        [|""; "arbejds"; "forsker"|]);
  RegS (Itk, f, "indhold", "-et", "", "", [|""|]);
- RegS (Fk,  f, "indførelse", "-n", "", "", 
+ RegS (Fk,  f, "indfÃ¸relse", "-n", "", "", 
        [|"edb-"; "system"; "teknologi"|]);
  RegS (Fk,  t, "indsats", "-en", "", "", [|""; "forsknings"|]);
  RegS (Itk, t, "initiativ", "-et", "-er", "-ne", 
@@ -57,16 +57,16 @@ let substantiver = [|
  RegS (Fk,  t, "kultur", "-en", "", "", [|""|]);
  RegS (Fk,  t, "kvalitet", "-en", "-er", "-ne", 
        [|""; "livs"; "software"|]);
- RegS (Fk,  f, "læring", "-en", "", "", [|""|]);
+ RegS (Fk,  f, "lÃ¦ring", "-en", "", "", [|""|]);
  RegS (Fk,  t, "metode", "-n", "-r", "-ne", [|""|]);
- RegS (Itk, t, "miljø", "-et", "-er", "-ne", 
-       [|""; "forsknings"; "lærings"; "undervisnings"|]);
+ RegS (Itk, t, "miljÃ¸", "-et", "-er", "-ne", 
+       [|""; "forsknings"; "lÃ¦rings"; "undervisnings"|]);
  RegS (Itk, t, "ministerium", "ministeriet", "ministerier", "-ne", 
-       [|""; "forsknings"; "miljø"; "undervisnings"|]);
+       [|""; "forsknings"; "miljÃ¸"; "undervisnings"|]);
  RegS (Fk,  t, "model", "-len", "-ler", "-ne", [|""|]);
- RegS (Itk, t, "netværk", "-et", "-", "-erne", [|""|]);
+ RegS (Itk, t, "netvÃ¦rk", "-et", "-", "-erne", [|""|]);
  RegS (Itk, t, "niveau", "-et", "-er", "-ne", [|""|]);
- RegS (Itk, t, "område", "-t", "-r", "-ne", 
+ RegS (Itk, t, "omrÃ¥de", "-t", "-r", "-ne", 
        [|""; "indsats"; "problem"|]);
  RegS (Fk,  f, "omstilling", "-en", "", "", [|""|]);
  RegS (Fk,  t, "organisation", "-en", "-er", "-ne", 
@@ -94,7 +94,7 @@ let substantiver = [|
  RegS (Itk, t, "resultat", "-et", "-er", "-ne", 
        [|""; "evaluerings"; "forsknings"|]);
  RegS (Fk,  t, "ressource", "-n", "-r", "-ne", [|""|]);
- RegS (Itk, t, "råd", "-et", "-", "-ene", 
+ RegS (Itk, t, "rÃ¥d", "-et", "-", "-ene", 
        [|"center"; "forsknings"; "uddannelses"|]);
  RegS (Itk, t, "samfund", "-et", "", "", 
        [|""; "industri"; "info-"; "informations"; "videns"|]);
@@ -116,12 +116,12 @@ let substantiver = [|
        [|""; "edb-"; "produktions"|]);
  RegS (Fk,  t, "teknologi", "-en", "-er", "-ne", 
        [|""; "informations"; "kommunikations"; "koncern"; 
-         "multimedie"; "netværks"; "software"|]);
+         "multimedie"; "netvÃ¦rks"; "software"|]);
  RegS (Fk,  f, "teori", "-en", "-er", "-ne", [|""|]);
  RegS (Fk,  t, "tilpasning", "-en", "", "", [|""|]);
  RegS (Fk,  f, "uddannelse", "-n", "-r", "-ne", 
        [|"efter"; "videre"|]);
- RegS (Fk,  t, "undersøgelse", "-n", "-r", "-ne", [|""|]);
+ RegS (Fk,  t, "undersÃ¸gelse", "-n", "-r", "-ne", [|""|]);
  RegS (Itk, t, "universitet", "-et", "-er", "-ne", [|""|]);
  RegS (Itk, t, "udvalg", "-et", "-", "-ene", [|""|]);
  RegS (Itk, f, "udstyr", "-et", "", "", [|""|]);
@@ -177,7 +177,7 @@ let rec vaelg formkrav =
 let rec possesiv = function
   | Tom        -> Tom
   | Str s    -> Str (s + "s")
-  | OrSeq(s1, s2) ->
+  | OrdSeq (s1, s2) ->
       match s2 with
       | Tom -> possesiv s1
       | s2' -> s1 &&& s2'

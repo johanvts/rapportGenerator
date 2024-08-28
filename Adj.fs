@@ -20,7 +20,7 @@ let adjektiver =
       RegA("etisk", "-", "-e");
       RegA("forbedret", "-", "forbedrede");
       RegA("frugtbar", "-t", "-e");
-      RegA("fælles", "-", "-");
+      RegA("fÃ¦lles", "-", "-");
       RegA("generel", "-t", "-le");
       RegA("global", "-t", "-e");
 (*      RegA("god", "-t", "-e");*)
@@ -44,7 +44,7 @@ let adjektiver =
       RegA("lokal", "-t", "-e");
       RegA("metodisk", "-", "-e");
       RegA("moderne", "-", "-");
-      RegA("netværksbaseret", "-", "netværksbaserede");
+      RegA("netvÃ¦rksbaseret", "-", "netvÃ¦rksbaserede");
       RegA("offentlig", "-t", "-e");
       RegA("organisatorisk", "-", "-e");
       RegA("ny", "-t", "-e");
@@ -56,17 +56,17 @@ let adjektiver =
       RegA("projektorienteret", "-", "projektorienterede");
       RegA("relevant", "-", "-e");
       RegA("samfundsvidenskabelig", "-t", "-e");
-      RegA("samfundsmæssig", "-t", "-e");
+      RegA("samfundsmÃ¦ssig", "-t", "-e");
       RegA("social", "-t", "-e");
       RegA("speciel", "-t", "-le");
       RegA("specifik", "-t", "-ke");
       RegA("strategisk", "-", "-e");
       RegA("synlig", "-t", "-e");
-      RegA("særlig", "-t", "-e");
+      RegA("sÃ¦rlig", "-t", "-e");
       RegA("teoretisk", "-", "-e");
       RegA("traditionel", "-t", "-le");
-      RegA("troværdig", "-t", "-e");
-      RegA("tværfaglig", "-t", "-e");
+      RegA("trovÃ¦rdig", "-t", "-e");
+      RegA("tvÃ¦rfaglig", "-t", "-e");
       RegA("udenlandsk", "-", "-e");
       RegA("velstruktureret", "-", "velstrukturerede");
       RegA("vertikal", "-t", "-e");
@@ -74,12 +74,12 @@ let adjektiver =
       RegA("videnskabelig", "-t", "-e");
       RegA("vigtig", "-t", "-e");
       RegA("virtuel", "-t", "-le");
-      RegA("økonomisk", "-", "-e")|];         
+      RegA("Ã¸konomisk", "-", "-e")|];         
 
 let boej (RegA(fkent, itkent, flt_bes)) form koen =
     match form, koen with
-    | (ubs, ent), fk -> fkent
-    | (ubs, ent), itk -> tilfoej fkent itkent
+    | (Ubs, Ent), Fk -> fkent
+    | (Ubs, Ent), Itk -> tilfoej fkent itkent
     | _ -> tilfoej fkent flt_bes
 
 let vaelg () = vaelgfra adjektiver

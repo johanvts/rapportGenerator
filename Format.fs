@@ -5,6 +5,14 @@ open Basis
 // MoscowML has a concat function
 let concat = String.concat ""
 
+let rec begyndelse = function
+  | Tom -> Tom  
+  | Str w -> Str (w.[0].ToString().ToUpper() + w.Substring(1))
+  | OrdSeq (s1, s2) ->
+      match begyndelse s1 with
+       | Tom -> begyndelse s2
+       | s1' -> s1' &&& s2
+
 (* Html *)
 
 let para0 art indhold =

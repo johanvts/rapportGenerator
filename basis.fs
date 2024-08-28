@@ -5,9 +5,9 @@ open System
 type ordsek = 
     | Tom 
     | Str of string
-    | OrSeq of ordsek * ordsek
+    | OrdSeq of ordsek * ordsek
 
-let (&&&) ordA ordB = OrSeq(ordA, ordB)
+let (&&&) ordA ordB = OrdSeq(ordA, ordB)
 
 let rec mksek n f =
     match n with

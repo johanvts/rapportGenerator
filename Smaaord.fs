@@ -3,12 +3,12 @@ module Smaaord
 open Basis
 
 let artikel = function
-  | ((ubs, ent), itk) -> Str "et"
-  | ((bes, ent), itk) -> Str "det"
-  | ((ubs, ent), fk ) -> Str "en"
-  | ((bes, ent), fk ) -> Str "den"
-  | ((ubs, flt), _  ) -> Tom
-  | ((bes, flt), _  ) -> Str "de"
+  | ((Ubs, Ent), Itk) -> Str "et"
+  | ((Bes, Ent), Itk) -> Str "det"
+  | ((Ubs, Ent), Fk ) -> Str "en"
+  | ((Bes, Ent), Fk ) -> Str "den"
+  | ((Ubs, Flt), _  ) -> Tom
+  | ((Bes, Flt), _  ) -> Str "de"
 
 let adverbier =
     [|"ekstremt"; "ofte"; "helt"; "klart";
