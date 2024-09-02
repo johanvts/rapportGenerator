@@ -66,7 +66,6 @@ let slutafsnit () =
     niveau <- niveau - 1
 
 let nytafsnit (ovsk : ordsek) =
-    printfn "%A" niveau
     let (anker, ovsk') = Format.lavAnker ovsk
     overskrifter <- A((niveau, anker, ovsk), []) :: overskrifter
     overskrift niveau ovsk'

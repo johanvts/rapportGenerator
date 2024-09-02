@@ -134,7 +134,6 @@ let substantiver = [|
 |]
 
 let boejS (RegS(koen, artk, ubsen, besen, ubsfl, besfl, _)) form =
-    printfn "%A %A -%A" ubsen besen form
     match form with
       | (Ubs, Ent) -> ubsen
       | (Bes, Ent) -> tilfoej ubsen besen
