@@ -59,10 +59,10 @@ let substantiver = [|
        [|""; "livs"; "software"|]);
  RegS (Fk,  f, "lÃ¦ring", "-en", "", "", [|""|]);
  RegS (Fk,  t, "metode", "-n", "-r", "-ne", [|""|]);
- RegS (Itk, t, "miljÃ¸", "-et", "-er", "-ne", 
+ RegS (Itk, t, "miljø", "-et", "-er", "-ne", 
        [|""; "forsknings"; "lÃ¦rings"; "undervisnings"|]);
  RegS (Itk, t, "ministerium", "ministeriet", "ministerier", "-ne", 
-       [|""; "forsknings"; "miljÃ¸"; "undervisnings"|]);
+       [|""; "forsknings"; "miljø"; "undervisnings"|]);
  RegS (Fk,  t, "model", "-len", "-ler", "-ne", [|""|]);
  RegS (Itk, t, "netvÃ¦rk", "-et", "-", "-erne", [|""|]);
  RegS (Itk, t, "niveau", "-et", "-er", "-ne", [|""|]);
