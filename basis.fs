@@ -24,7 +24,7 @@ exception Umulig of string
 
 let tilfoej rod suf =
     match suf with
-    | "" -> raise (Umulig "Umulig")
+    | "" -> raise (Umulig $"Umulig: {rod}")
     | _ when suf.[0] = '-' -> rod + suf.Substring(1)
     | _ -> suf
 

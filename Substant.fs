@@ -94,9 +94,9 @@ let substantiver = [|
  RegS (Itk, t, "resultat", "-et", "-er", "-ne", 
        [|""; "evaluerings"; "forsknings"|]);
  RegS (Fk,  t, "ressource", "-n", "-r", "-ne", [|""|]);
- RegS (Itk, t, "rÃ¥d", "-et", "-", "-ene", 
+ RegS (Itk, t, "råd", "-et", "-", "-ene", 
        [|"center"; "forsknings"; "uddannelses"|]);
- RegS (Itk, t, "samfund", "-et", "", "", 
+ RegS (Itk, t, "samfund", "-et", "-", "-ene", 
        [|""; "industri"; "info-"; "informations"; "videns"|]);
  RegS (Itk, f, "samspil", "-let", "", "", [|""|]);
  RegS (Itk, t, "scenario", "scenariet", "scenarier", "-ne", [|""|]);
@@ -118,22 +118,23 @@ let substantiver = [|
        [|""; "informations"; "kommunikations"; "koncern"; 
          "multimedie"; "netvÃ¦rks"; "software"|]);
  RegS (Fk,  f, "teori", "-en", "-er", "-ne", [|""|]);
- RegS (Fk,  t, "tilpasning", "-en", "", "", [|""|]);
+ RegS (Fk,  t, "tilpasning", "-en", "-er", "-ne", [|""|]);
  RegS (Fk,  f, "uddannelse", "-n", "-r", "-ne", 
        [|"efter"; "videre"|]);
- RegS (Fk,  t, "undersÃ¸gelse", "-n", "-r", "-ne", [|""|]);
+ RegS (Fk,  t, "undersøgelse", "-n", "-r", "-ne", [|""|]);
  RegS (Itk, t, "universitet", "-et", "-er", "-ne", [|""|]);
  RegS (Itk, t, "udvalg", "-et", "-", "-ene", [|""|]);
  RegS (Itk, f, "udstyr", "-et", "", "", [|""|]);
  RegS (Fk,  t, "udvikling", "-en", "", "",
        [|""; "IT-"; "samfunds"; "edb-"; "kvalitets"; "produkt"; "videre"|]);
- RegS (Fk,  f, "viden", "", "", "", [|""|]);
+ RegS (Fk,  f, "viden", "-en", "", "", [|""|]);
  RegS (Fk,  t, "virksomhed", "-en", "-er", "-ne", 
        [|""; "software"|]);
  RegS (Fk,  t, "virkning", "-en", "-er", "-ne", [|""|])
 |]
 
 let boejS (RegS(koen, artk, ubsen, besen, ubsfl, besfl, _)) form =
+    printfn "%A %A -%A" ubsen besen form
     match form with
       | (Ubs, Ent) -> ubsen
       | (Bes, Ent) -> tilfoej ubsen besen
