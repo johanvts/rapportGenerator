@@ -57,14 +57,14 @@ let substantiver = [|
  RegS (Fk,  t, "kultur", "-en", "", "", [|""|]);
  RegS (Fk,  t, "kvalitet", "-en", "-er", "-ne", 
        [|""; "livs"; "software"|]);
- RegS (Fk,  f, "lÃ¦ring", "-en", "", "", [|""|]);
+ RegS (Fk,  f, "læring", "-en", "", "", [|""|]);
  RegS (Fk,  t, "metode", "-n", "-r", "-ne", [|""|]);
  RegS (Itk, t, "miljø", "-et", "-er", "-ne", 
-       [|""; "forsknings"; "lÃ¦rings"; "undervisnings"|]);
+       [|""; "forsknings"; "lærings"; "undervisnings"|]);
  RegS (Itk, t, "ministerium", "ministeriet", "ministerier", "-ne", 
        [|""; "forsknings"; "miljø"; "undervisnings"|]);
  RegS (Fk,  t, "model", "-len", "-ler", "-ne", [|""|]);
- RegS (Itk, t, "netvÃ¦rk", "-et", "-", "-erne", [|""|]);
+ RegS (Itk, t, "netværk", "-et", "-", "-erne", [|""|]);
  RegS (Itk, t, "niveau", "-et", "-er", "-ne", [|""|]);
  RegS (Itk, t, "område", "-t", "-r", "-ne", 
        [|""; "indsats"; "problem"|]);
@@ -116,7 +116,7 @@ let substantiver = [|
        [|""; "edb-"; "produktions"|]);
  RegS (Fk,  t, "teknologi", "-en", "-er", "-ne", 
        [|""; "informations"; "kommunikations"; "koncern"; 
-         "multimedie"; "netvÃ¦rks"; "software"|]);
+         "multimedie"; "netværks"; "software"|]);
  RegS (Fk,  f, "teori", "-en", "-er", "-ne", [|""|]);
  RegS (Fk,  t, "tilpasning", "-en", "-er", "-ne", [|""|]);
  RegS (Fk,  f, "uddannelse", "-n", "-r", "-ne", 
