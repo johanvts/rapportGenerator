@@ -1,2 +1,2 @@
 open Rapport
-rapport ()
+printfn "%A" (rapport ())

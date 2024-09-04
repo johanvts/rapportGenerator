@@ -4,7 +4,7 @@ open Basis
 
 type substantiv =
     RegS of genus * bool * string * string * string * string * (string array)
-         (* artk    bes?   ubs/en   bes/en   ubs/fl   bes/fl   prÃ¦fixer *)    
+         (* artk    bes?   ubs/en   bes/en   ubs/fl   bes/fl   præfixer *)    
 
 let f = false
 let t = true
@@ -168,8 +168,8 @@ let rec vaelg formkrav =
                     | None -> vaelgfra former
                     | Some (b, Flt) -> if taelleligS subst then (b, Flt) else (b, Ent)
                     | Some form     -> form
-    let nom = dobbeltS praefikser praef &&& Str (praef + boejS subst form) 
     try
+        let nom = dobbeltS praefikser praef &&& Str (praef + boejS subst form) 
         (form, koenS subst, nom, taelleligS subst)
     with
         | Umulig _ -> vaelg formkrav
