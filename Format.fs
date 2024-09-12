@@ -1,9 +1,42 @@
 module Format
 
+open System.IO
 open Basis
+
 
 // MoscowML has a concat function
 let concat = String.concat ""
+
+let mutable linielgd = 72
+
+let udskrivSkaber bredde out ordsek =
+    let rec loop ordsek rest =
+        match ordsek with
+            | Tom -> rest
+            | (Str ",") -> out ","; rest-1
+            | (Str ".") -> out "."; rest-1
+            | (Str "\n") -> out "\n"; bredde
+            | (Str w) ->
+                    let size w = (String.length w)
+                    if rest <> bredde then (* allerede noget på linien *)
+                        if (size w) + 1 <= rest then (out " "; out w; rest-size w-1)
+                        else (out "\n"; out w; bredde - size w)
+                    else if size w <= rest then (out w; rest-size w)
+                        else (out "\n"; out w; bredde - (size w))
+            | OrdSeq (s1, s2) -> loop s2 (loop s1 rest)
+    loop ordsek bredde |> ignore
+
+let udskriv = fun out -> fun ordsek ->  udskrivSkaber linielgd out ordsek
+
+let printer ordsek =
+    use os = new StreamWriter("PRN");
+    let out : string -> unit  = os.Write 
+    udskriv out ordsek; out "\n\n";
+    
+let skaerm ordsek =
+    let out = printfn "%s"
+    udskriv out ordsek
+    out "\n\n"
 
 let rec begyndelse = function
   | Tom -> Tom  
