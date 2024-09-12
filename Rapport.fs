@@ -48,15 +48,17 @@ let private overskrift niv s =
     match niv with
         | 0 -> Format.overskrift0 s
         | 1 -> Format.overskrift1 s
-        | _ -> failwith $"overskrift niveau {niv} ikke understÃ¸ttet."  
+        | _ -> failwith $"overskrift niveau {niv} ikke understøttet."  
 
 let rec private slutunder (partial : partial) : partial = 
     let rec loop remaining sidste res =
         match remaining with
         | [] -> res
-        | (A((niv, anker, ovs), [])) :: rest when niv = sidste ->
-            loop rest sidste (A((niv, anker, ovs), res) :: res)
-        | a :: rest -> loop rest sidste (a :: res)
+        | ((A((niv, anker, ovs), [])) as afs) :: rest ->
+            if niv = sidste then
+                loop rest sidste (afs :: res)
+            else
+                (A((niv, anker, ovs), res) :: rest)
     loop partial niveau []
 
 let begyndafsnit () = niveau <- niveau + 1
