@@ -34,7 +34,7 @@ let printer ordsek =
     udskriv out ordsek; out "\n\n";
     
 let skaerm ordsek =
-    let out = printfn "%s"
+    let out = printf "%s"
     udskriv out ordsek
     out "\n\n"
 

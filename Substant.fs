@@ -178,6 +178,6 @@ let rec possesiv = function
   | Tom        -> Tom
   | Str s    -> Str (s + "s")
   | OrdSeq (s1, s2) ->
-      match s2 with
+      match possesiv s2 with
       | Tom -> possesiv s1
       | s2' -> s1 &&& s2'
