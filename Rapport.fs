@@ -48,7 +48,7 @@ let private overskrift niv s =
     match niv with
         | 0 -> Format.overskrift0 s
         | 1 -> Format.overskrift1 s
-        | _ -> failwith $"overskrift niveau {niv} ikke understøttet."  
+        | _ -> failwith $"overskrift niveau {niv} ikke understÃ¸ttet."  
 
 let rec private slutunder (partial : partial) : partial = 
     let rec loop remaining sidste res =
