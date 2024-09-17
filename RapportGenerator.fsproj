@@ -13,6 +13,7 @@
     <Compile Include="Adj.fs" />
     <Compile Include="Led.fs" />
     <Compile Include="Format.fs" />
+    <Compile Include="Navne.fs" />
     <Compile Include="Rapport.fs" />
     <Compile Include="Forslag.fs" />
   </ItemGroup>

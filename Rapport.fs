@@ -100,11 +100,11 @@ let kolofon =
 let forfattere () =
     nytafsnit (Str "Appendiks: Arbejdsgruppens medlemmer")
     &&& Str "Arbejdsgruppen bag rapporten bestod af"
-//    &&& Format.ul (mksek (5 + terning 5) 
-//                        (Format.li << Format.begyndelse << Navne.person))
+    &&& Format.ul (mksek (5 + terning 5) 
+                        (Format.li << Format.begyndelse << Navne.person))
     &&& Format.afsnit ()
     &&& Str "Endvidere rettes en tak til" 
-//    &&& Navne.person () &&& Str "og" &&& Navne.person () 
+    &&& Navne.person () &&& Str "og" &&& Navne.person () 
     &&& Str "for konstruktiv kritik." 
 
  
