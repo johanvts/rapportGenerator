@@ -2,10 +2,9 @@ module LagkageGenerator
 
 open System
 
-let createPieChart (height: float) (andele: float list) (tekster: string list) : string =
+let createPieChart (height: float) (andele: float list) (tekster: string list) (rng:System.Random) : string =
     let total = List.sum andele
-    let angles = andele |> List.map (fun a -> 360.0 * (a / total))
-    let radians = angles |> List.map (fun a -> (Math.PI / 180.0) * a)
+    let radians = andele |> List.map(fun a ->  (Math.PI/180.0) * 360.0 * a/ total )
     let colors = ["#dc6b6a"; "#71b5e5"; "#c1c1ad"; "#abdc9b"; "#3b9c4b"; "#ed8822"]
 
     let pieSlices =
@@ -18,11 +17,17 @@ let createPieChart (height: float) (andele: float list) (tekster: string list) :
                 let x2 = height / 2.0 + (height / 2.0) * Math.Cos(currentAngle + r)
                 let y2 = height / 2.0 + (height / 2.0) * Math.Sin(currentAngle + r)
                 let largeArcFlag = if r > Math.PI then 1 else 0
-                let path = sprintf "<path d=\"M %f,%f L %f,%f A%f,%f 0 %d,1 %f,%f Z\" fill=\"%s\" stroke=\"black\" />" 
-                                (height / 2.0) (height / 2.0) x1 y1 (height / 2.0) (height / 2.0) largeArcFlag x2 y2 c
+                let path = sprintf """<path d="M %f,%f L %f,%f A%f,%f 0 %d,1 %f,%f Z" fill="%s" stroke="black" />\n\
+                <text x="%f" y="%f">%s</text>""" 
+                                (height / 2.0) (height / 2.0) // M - Move to
+                                x1 y1 // L - Line to
+                                (height / 2.0) (height / 2.0) largeArcFlag x2 y2 // A - rx ry large arc? destination dx, dy
+                                c // Fill color
+                                x2 y2 // Text location
+                                t// Text
                 pieHelper (path::acc) (currentAngle + r) rs ts cs
 
-        pieHelper [] 0.0 radians tekster colors
+        pieHelper [] (rng.Next(8)) radians tekster colors
 
     let pieChartSvg = String.concat "\n" (pieSlices)
 
