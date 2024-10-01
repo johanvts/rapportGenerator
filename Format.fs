@@ -32,6 +32,15 @@ let printer ordsek =
     use os = new StreamWriter("PRN");
     let out : string -> unit  = os.Write 
     udskriv out ordsek; out "\n\n";
+
+let rec strengPrinter = function
+    | Str w -> w
+    | Tom -> ""
+    | OrdSeq (s1, s2) ->
+        let combined = $"{strengPrinter s1} {strengPrinter s2}"
+        if (String.length combined) > (linielgd / 2)
+        then  $"{strengPrinter s1}..."
+        else  combined
     
 let skaerm ordsek =
     let out = printf "%s"
