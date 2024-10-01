@@ -79,7 +79,7 @@ let streg  () = Str "\n" &&& Str "<hr>"
 
 let hoved s = para0 "head" (para0 "title" s)
 
-let krop indhold = para1 "body" "bgcolor=#FFFFFF" indhold
+let krop indhold = para1 "body" "bgcolor=#fbf2e7" indhold
 
 let overskrift0 indhold = Str "\n" &&& para0 "H1" indhold &&& Str "\n"
 let overskrift1 indhold = Str "\n" &&& para0 "H2" indhold &&& Str "\n"
