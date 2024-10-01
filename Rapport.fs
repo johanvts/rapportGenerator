@@ -247,7 +247,7 @@ let mkafsnit () =
     &&& konstatering ()
     &&& mksek (3 + terning 5) (vaelgLige [| konstatering; raesonnement; konsekvens |])
 //    &&& (0.25 >>> (billede "lagkage" ||| billede "kurver")) ()
-    &&& (0.25 >>> (fun _ -> Format.center (Str (opretLagkage 400.0 [100.0;200.0;300.0] [nominal (); nominal (); nominal ()] ((float)(Basis.terning 3)))))) ()
+    &&& (0.25 >>> (fun _ -> Format.center (Str (opretLagkage 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 8)) (fun _ -> nominal ())))  ((float)(terning 3)))))) ()
 
 let ``before`` e1 e2 =
     let result = e1 ()

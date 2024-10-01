@@ -3,7 +3,8 @@ module LagkageGenerator
 open System
 open Basis
 
-let opretLagkage (height: float) (andele: float list) (tekster: ordsek list) rotation : string =
+let opretLagkage (height: float) (tekster: ordsek list) rotation : string =
+    let andele = tekster |> List.map (fun _ -> (float)(terning 100))
     let total = List.sum andele
     let radianer = andele |> List.map(fun a ->  (Math.PI/180.0) * 360.0 * a/ total )
     let farver = ["#dc6b6a"; "#71b5e5"; "#c1c1ad"; "#abdc9b"; "#3b9c4b"; "#ed8822"]
