@@ -13,8 +13,8 @@ let (>>>) p s () = if ssh p then s() else Tom (* valg eller ikke af en *)
 let vaelgLige ss () = vaelgfra ss ()      (* lige valg blandt alle *)
 
 let private vaelgNyUdenGentagelserInstans = 
-    (* lige valg blandt strenge, men undgÃ¥ at vÃ¦lge samme for ofte *)
-    // i.e. der skal vÃ¦re mindst 30 andre valg fÃ¸r en gentagelse, hvis muligt.
+    (* lige valg blandt strenge, men undgå at vælge samme for ofte *)
+    // i.e. der skal være mindst 30 andre valg før en gentagelse, hvis muligt.
     let mutable valgNummer = 0
     let  sidstegang = Array.create 117 -999999
     let rec vaelgny ss =
@@ -49,7 +49,7 @@ let private overskrift niv s =
     match niv with
         | 0 -> Format.overskrift0 s
         | 1 -> Format.overskrift1 s
-        | _ -> failwith $"overskrift niveau {niv} ikke understÃ¸ttet."  
+        | _ -> failwith $"overskrift niveau {niv} ikke understøttet."  
 
 let rec private slutunder (partial : partial) : partial = 
     let rec loop remaining sidste res =
@@ -95,8 +95,8 @@ let kolofon =
     @@@ s"ved" 
 //    @@@ Format.href generator o s generator
     @@@ s"."
-    @@@ s"Rapporten er trykt pÃ¥ genbrugspapir" 
-    @@@ s"og overholder gÃ¦ldende EU-normer for klarhed og relevans."
+    @@@ s"Rapporten er trykt på genbrugspapir" 
+    @@@ s"og overholder gældende EU-normer for klarhed og relevans."
 
 let forfattere () =
     nytafsnit (Str "Appendiks: Arbejdsgruppens medlemmer")
@@ -115,42 +115,42 @@ let adverbial =
     0.3 >>> vaelgNyUg
             [|"af omveje"; "aldrig"; "blot"; "delvis"; 
               "dybest set"; "effektivt"; "eventuelt"; "fortrinsvis"; 
-              "fÃ¸rst og fremmest"; "generelt";
-              "gradvis"; "ikke"; "ikke nÃ¸dvendigvis"; 
-              "indadtil"; "indirekte"; "i det lange lÃ¸b"; 
+              "først og fremmest"; "generelt";
+              "gradvis"; "ikke"; "ikke nødvendigvis"; 
+              "indadtil"; "indirekte"; "i det lange løb"; 
               "i ringe grad";
               "isoleret set";
-              "kun"; "kun sjÃ¦ldent"; "langt oftere"; "lÃ¸st sagt";
+              "kun"; "kun sjældent"; "langt oftere"; "løst sagt";
               "med tiden"; "midlertidigt"; "muligvis";
-              "mÃ¥ske"; "mÃ¥ske ikke"; "noget indirekte"; "nok ikke"; 
+              "måske"; "måske ikke"; "noget indirekte"; "nok ikke"; 
               "ofte"; "partielt"; "potentielt"; 
               "ret typisk"; "ret utvetydigt";  
-              "sjÃ¦ldent"; "sÃ¥ at sige"; 
+              "sjældent"; "så at sige"; 
               "temmelig entydigt"; "tendentielt"; 
-              "utvivlsomt"; "kun vanskeligt"; "vÃ¦sentligst"|]
+              "utvivlsomt"; "kun vanskeligt"; "væsentligst"|]
               
 let verbPraesIndAkt = 
-    vaelgNyUg [|"accentuerer"; "afmystificerer"; "angÃ¥r"; "belyser"; "begrunder"; 
-           "berÃ¸rer"; "beskriver";
-           "besvÃ¦rliggÃ¸r"; "effektiviserer"; "eksternaliserer"; 
+    vaelgNyUg [|"accentuerer"; "afmystificerer"; "angår"; "belyser"; "begrunder"; 
+           "berører"; "beskriver";
+           "besværliggør"; "effektiviserer"; "eksternaliserer"; 
            "erstatter";
            "forandrer"; "foregriber"; "fornyer";
-           "forstÃ¦rker"; "fortrÃ¦nger"; "fremmer"; "hÃ¦mmer";
+           "forstærker"; "fortrænger"; "fremmer"; "hæmmer";
            "implicerer"; "involverer"; "karakteriserer"; 
-           "kendetegner"; "klarlÃ¦gger";
+           "kendetegner"; "klarlægger";
            "komplicerer";
            "modarbejder"; "moderniserer"; "modsvarer"; 
            "omdefinerer";
-           "problematiserer"; "profilerer"; "pÃ¥virker"; 
+           "problematiserer"; "profilerer"; "påvirker"; 
            "reducerer";
-           "styrker"; "stÃ¸tter"; "svÃ¦kker"; "udnytter"; "udvikler";
-           "understÃ¸tter"; "vedrÃ¸rer"|]
+           "styrker"; "støtter"; "svækker"; "udnytter"; "udvikler";
+           "understøtter"; "vedrører"|]
            
 let konjunktion =
     vaelgNyUg [|"da"; "da"; "eftersom"; "eftersom"; "fordi"; "forudsat"; 
            "hvis"; "ikke mindst fordi"; "mens"; "netop fordi";
-           "nÃ¥r"; "nÃ¥r blot"; "pÃ¥ trods af at"; 
-           "selvom"; "selvom"; "skÃ¸nt"; "sÃ¥fremt"|]
+           "når"; "når blot"; "på trods af at"; 
+           "selvom"; "selvom"; "skønt"; "såfremt"|]
 
 let ledsaetning =
     nominal @@@ adverbial @@@ verbPraesIndAkt @@@ nominal
@@ -162,17 +162,17 @@ let hovedsaetning =
     nominal @@@ verbPraesIndAkt @@@ adverbial @@@ nominal
 
 let konstateringUdenFormat = 
-    (vaelgLige [| s"det er" @@@ (vaelgNyUg [| "beklageligt"; "bevist"; "forstÃ¥eligt"; 
+    (vaelgLige [| s"det er" @@@ (vaelgNyUg [| "beklageligt"; "bevist"; "forståeligt"; 
                                           "klart"; "indiskutabelt"; 
-                                          "nÃ¸dvendigt"; "oplagt"; "pÃ¥faldende"; "velkendt" |]);
+                                          "nødvendigt"; "oplagt"; "påfaldende"; "velkendt" |]);
                 vaelgNyUg [| "anerkendte"; "enkelte"; "de fleste"; "danske"; "isolerede"; 
                            "omhyggelige";  
-                           "samtlige"; "trovÃ¦rdige"; "uafhÃ¦ngige"; 
+                           "samtlige"; "troværdige"; "uafhængige"; 
                            "udenlandske"; "visse"; "vores" |]
               @@@ vaelgNyUg [| "analyser"; "forskere"; "iagttagere"; "resultater";
-                             "studier"; "undersÃ¸gelser" |]
-              @@@ vaelgNyUg [| "antyder"; "demonstrerer"; "fastslÃ¥r"; 
-                             "lader formode"; "pÃ¥peger"; "viser" |]
+                             "studier"; "undersøgelser" |]
+              @@@ vaelgNyUg [| "antyder"; "demonstrerer"; "fastslår"; 
+                             "lader formode"; "påpeger"; "viser" |]
               |]
      @@@ s"at" 
      @@@ ledsaetning
@@ -182,12 +182,12 @@ let konstateringUdenFormat =
                                 (s"," @@@ s"og " @@@ konjunktion @@@ ledsaetning));
                       s","
                            @@@ (s"der" ||| s"som")
-                           @@@ (0.5 >>> vaelgNyUg [| "af denne Ã¥rsag"; "derfor"; "fÃ¸lgelig"; 
-                                       "samtidig"; "sidelÃ¸bende"; 
-                                       "sÃ¥ledes"; "trods dette" |])
+                           @@@ (0.5 >>> vaelgNyUg [| "af denne årsag"; "derfor"; "følgelig"; 
+                                       "samtidig"; "sideløbende"; 
+                                       "således"; "trods dette" |])
                            @@@ adverbial @@@ verbPraesIndAkt @@@ nominal;
                     0.3 >>>(s"."
-                            @@@ s"For det fÃ¸rste fordi" @@@ ledsaetning
+                            @@@ s"For det første fordi" @@@ ledsaetning
                             @@@ s","
                             @@@ s"og for det andet fordi" @@@ ledsaetning)
                  |]
@@ -198,14 +198,14 @@ let raesonnementUdenFormat =
     konjunktion
     @@@ ledsaetning
     @@@ s ","
-    @@@ ((vaelgNyUg [| "bÃ¸r"; "kan"; "mÃ¥"; "skal" |]) @@@ s "det"
-         @@@ (vaelgNyUg [| "antages"; "betones"; "betvivles"; "forudsÃ¦ttes";
+    @@@ ((vaelgNyUg [| "bør"; "kan"; "må"; "skal" |]) @@@ s "det"
+         @@@ (vaelgNyUg [| "antages"; "betones"; "betvivles"; "forudsættes";
                      "konstateres"; "pointeres"; 
-                     "pÃ¥peges"; "understreges" |])
-         ||| (vaelgNyUg [| "bÃ¸r"; "kan"; "mÃ¥"; "skal" |]) 
+                     "påpeges"; "understreges" |])
+         ||| (vaelgNyUg [| "bør"; "kan"; "må"; "skal" |]) 
              @@@ (vaelgNyUg [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |]) 
              @@@ (vaelgNyUg [| "acceptere"; "anerkende"; "antage"; "beklage"; 
-                        "sikre"; "forudsÃ¦tte"; "konstatere" |]))
+                        "sikre"; "forudsætte"; "konstatere" |]))
     @@@ s "at" 
     @@@ (ledsaetning
          ||| s "dette" @@@ adverbial @@@ verbPraesIndAkt @@@ nominal)
@@ -214,19 +214,19 @@ let raesonnement = Format.begyndelse << raesonnementUdenFormat @@@ s "."
 
 let konsekvensUdenFormat =
     (vaelgLige [|s "det" 
-            @@@ (vaelgNyUg [| "fÃ¸lger"; "indses"; "konkluderes"; "ses" |]);
+            @@@ (vaelgNyUg [| "følger"; "indses"; "konkluderes"; "ses" |]);
                 vaelgNyUg [| "arbejdsgruppen"; "man"; "udvalget"; "vi" |]
                 @@@ (vaelgNyUg [| "konkluderer"; "ser"; "slutter" |]);
-          s "der" @@@ s "gÃ¦lder"
+          s "der" @@@ s "gælder"
          |])
-    @@@ (vaelgNyUg [| "altsÃ¥"; "da"; "derfor"; "endda"; "endvidere"; 
-                 "nu"; "straks"; "sÃ¥ledes"; "tillige";
+    @@@ (vaelgNyUg [| "altså"; "da"; "derfor"; "endda"; "endvidere"; 
+                 "nu"; "straks"; "således"; "tillige";
                  "uden videre"; "ret umiddelbart"; "umiddelbart" |])
     @@@ s "," @@@ s "at"
     @@@ ledsaetning
     @@@ (0.7 >>>  s "," @@@ s "og" @@@ s "at" @@@ ledsaetning)
-    ||| (vaelgNyUg [| "altsÃ¥"; "af disse grunde"; "derfor"; "klart nok";
-               "fÃ¸lgelig"; "sÃ¥ledes" |])
+    ||| (vaelgNyUg [| "altså"; "af disse grunde"; "derfor"; "klart nok";
+               "følgelig"; "således" |])
         @@@ ledsaetning2
 
 let konsekvens = Format.begyndelse << konsekvensUdenFormat @@@ s "."
@@ -247,7 +247,7 @@ let mkafsnit () =
     &&& konstatering ()
     &&& mksek (3 + terning 5) (vaelgLige [| konstatering; raesonnement; konsekvens |])
 //    &&& (0.25 >>> (billede "lagkage" ||| billede "kurver")) ()
-    &&& (0.25 >>> (fun _ -> Format.center (Str (opretLagkage 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 8)) (fun _ -> nominal ())))  ((float)(terning 3)))))) ()
+    &&& (0.25 >>> (fun _ -> Format.center (Str (opretLagkage 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 6)) (fun _ -> nominal ())))  ((float)(terning 3)))))) ()
 
 let ``before`` e1 e2 =
     let result = e1 ()
@@ -267,22 +267,22 @@ let centernavn =  titelnom @@@ vaelgNyUg [|"og"; "samt"|] @@@ titelnom
 
 let samarbejde =
     Format.afsnit
-    @@@ s "Centret vil vÃ¦re en oplagt partner for det nyligt" 
-    @@@ s "foreslÃ¥ede center for" @@@ centernavn @@@ s "," 
-    @@@ s "ligesom der bÃ¸r kunne opnÃ¥s en frugtbar symbiose med"
+    @@@ s "Centret vil være en oplagt partner for det nyligt" 
+    @@@ s "foreslåede center for" @@@ centernavn @@@ s "," 
+    @@@ s "ligesom der bør kunne opnås en frugtbar symbiose med"
     @@@ s "centret for" @@@ centernavn @@@ s "."
 
 let rec oprettelse center =
     Format.begyndelse <<
-         (vaelgNyUg [|"de anfÃ¸rte"; "ovenstÃ¥ende"; "de opregnede"|]
+         (vaelgNyUg [|"de anførte"; "ovenstående"; "de opregnede"|]
           @@@ vaelgNyUg [|"argumenter"; "betragtninger"; "forhold"; "grunde";
                     "konstateringer"; "overvejelser"; 
-                    "rÃ¦sonnementer"|]
-          @@@ vaelgNyUg [|"fÃ¸rer"; "leder"|]
-          @@@ (0.5 >>> vaelgNyUg [|"logisk"; "nÃ¸dvendigvis"; "os"; "uomgÃ¦ngeligt"|])
+                    "ræsonnementer"|]
+          @@@ vaelgNyUg [|"fører"; "leder"|]
+          @@@ (0.5 >>> vaelgNyUg [|"logisk"; "nødvendigvis"; "os"; "uomgængeligt"|])
           @@@ (0.3 >>> s "frem")
           @@@ s "til den konklusion at der" 
-          @@@ vaelgNyUg [|"er behov for"; "mÃ¥ oprettes"; "bÃ¸r etableres"|]
+          @@@ vaelgNyUg [|"er behov for"; "må oprettes"; "bør etableres"|]
           @@@ s "et virtuelt center for" @@@ (fun _ ->  center)
           @@@ s ".")
 
