@@ -7,7 +7,7 @@ let opretLagkage (height: float) (tekster: ordsek list) rotation : string =
     let andele = tekster |> List.map (fun _ -> (float)(terning 100))
     let total = List.sum andele
     let radianer = andele |> List.map(fun a ->  (Math.PI/180.0) * 360.0 * a/ total )
-    let farver = ["#dc6b6a"; "#71b5e5"; "#c1c1ad"; "#abdc9b"; "#3b9c4b"; "#ed8822"]
+    let farver = ["#32D0E5"; "#2745CF"; "#21BC55"; "#742C93"; "#02080B"; "#FFD800"]
     let kageStykke origo p1 p2 farve omvej =
         sprintf """<path d="M %f,%f L %f,%f A%f,%f 0 %d,1 %f,%f Z" fill="%s" stroke="black" />"""
             (fst origo) (snd origo)// M - Move to
