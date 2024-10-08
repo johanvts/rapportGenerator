@@ -50,13 +50,17 @@ let opretKurver (hoejde:float) (tekster: ordsek list) =
                    <polygon points="%f,%f,%f,%f,%f,%f" fill="black"/>"""
            10f (hoejde) 10f 0f
            10f 0f 5f 10f 15f 10f
-    let kurve start skridt farve =
-        let skridtLaengde = (int)laengde/skridt
-        let udgangspunkt = (10, start)
-        let svgPunkter = [0..skridt] |> List.scan (fun (x,y) _ -> (x + skridtLaengde, y + (if terning 6 > 3 then -1*(terning 10) else (terning 10)))) udgangspunkt
+    let overKurve grundKurve startHop =
+        let skridtLaengde = (laengde-10.)/(float)(grundKurve |> List.length)        
+        grundKurve |> List.scan (fun (x,y) (nuY ) -> (x + skridtLaengde, Math.Min(nuY, y + (if terning 6 > 3 then -1.*(float)(terning 20) else (terning 20))))) (10., (List.head grundKurve) - startHop)
+    let svgKurve kurve farve =        
         sprintf """<polygon points="%f,%f,%f,%f,%s" fill="%s"/>"""
-            laengde hoejde 10.0 hoejde (String.Join( ',',svgPunkter |> List.map (fun (x,y) -> $"{x},{y}"))) farve
-    let antalKurver = Math.Max(2, terning 6)
-    let kurve1 = kurve (terning ((int)hoejde)) 200 "#7C1E21"
-    let kurve2 = kurve (terning ((int)hoejde)) 200 "#F7F036"
-    sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*2.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) ($"{xAkse} {yAkse} {kurve1} {kurve2}")
+            laengde hoejde 10.0 hoejde (String.Join( ',',kurve |> List.map (fun (x,y) -> $"{x},{y}"))) farve
+    let grundKurve = List.init 100 (fun _ -> (0., hoejde))
+    let farver = ["#7C1E21";"#F7F036";"#066B35"; "#92A5AF";"#0095A0";"#BC352B"]
+    let antalKurver = terning (List.length farver)
+    let svgKurver =
+        [1..antalKurver] |> List.scan (fun kurve _ -> overKurve (List.map snd kurve) ((float)(terning 120))) grundKurve |> List.skip 1
+        |> List.zip (farver |> List.sortBy (fun _ -> terning 5) |> List.take antalKurver) |> List.map (fun (farve, kurve) -> svgKurve kurve farve) |> List.rev |> String.Concat
+
+    sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*2.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) ($"{xAkse} {yAkse} {svgKurver}")
