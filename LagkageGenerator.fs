@@ -54,7 +54,7 @@ let opretKurver (hoejde:float) (tekster: ordsek list) =
            10f 0f 5f 10f 15f 10f
     let overKurve grundKurve startHop =
         let skridtLaengde = (laengde-10.)/(float)(grundKurve |> List.length)        
-        grundKurve |> List.scan (fun (x,y) (nuY ) -> (x + skridtLaengde, Math.Min(nuY, y + (if terning 6 > 3 then -1.*(float)(terning 20) else (terning 20))))) (10., (List.head grundKurve) - startHop)
+        grundKurve |> List.scan (fun (x,y) (nuY ) -> (x + skridtLaengde, Math.Max(10, Math.Min(nuY, y + (if terning 6 > 3 then -1.*(float)(terning 20) else (terning 20)))))) (10., (List.head grundKurve) - startHop)
     let svgKurve kurve farve =        
         sprintf """<polygon points="%f,%f,%f,%f,%s" fill="%s"/>"""
             laengde hoejde 10.0 hoejde (String.Join( ',',kurve |> List.map (fun (x,y) -> $"{x},{y}"))) farve
