@@ -3,6 +3,14 @@ module LagkageGenerator
 open System
 open Basis
 
+let forklaring x farve (nummer:int) tekst =
+    let rektangelHoejde = 35.
+    let (x,y) = (x + 50.0 , ((rektangelHoejde + 10.0) * (float)nummer))
+    sprintf """<rect width="%f" height="%f" x="%f" y="%f" rx="1" ry="1" fill="%s" stroke="black"/>\n\
+        <text x="%f" y="%f">%s</text>"""
+            (2.0*rektangelHoejde) rektangelHoejde x y farve
+            (x + (2.0 * rektangelHoejde) + 5.0) (y+0.6*rektangelHoejde) tekst        
+
 let opretLagkage (hoejde: float) (tekster: ordsek list) rotation : string =
     let andele = tekster |> List.map (fun _ -> (float)(terning 100))
     let total = List.sum andele
@@ -14,25 +22,19 @@ let opretLagkage (hoejde: float) (tekster: ordsek list) rotation : string =
             (fst p1) (snd p1) // L - Line to
             (hoejde / 2.0) (hoejde / 2.0) omvej (fst p2) (snd p2) // A - rx ry large arc? destination dx, dy
             farve // Fill color
-    let forklaring farve (nummer:int) tekst =
-        let rektangelHoejde = hoejde/(4.0 * (float)(tekster |> List.length))
-        let (x,y) = (hoejde + 50.0 , ((rektangelHoejde + 10.0) * (float)nummer))
-        sprintf """<rect width="%f" height="%f" x="%f" y="%f" rx="3" ry="3" fill="%s" stroke="black"/>\n\
-                   <text x="%f" y="%f">%s</text>"""
-            (2.0*rektangelHoejde) rektangelHoejde x y farve
-            (x + (2.0 * rektangelHoejde) + 5.0) (y+0.6*rektangelHoejde) tekst
+
     let rec kagebager (acc: string list) (currentAngle: float) (radiansList: float list) (textList: ordsek list) (colorList: string list) =
         match radiansList, textList, colorList with
             | [], _, _ | _, [], _ | _, _, [] -> acc
-            | r::rs, t::ts, c::cs ->
+            | r::rs, t::ts, f::fs ->
                 let x1 = hoejde / 2.0 + (hoejde / 2.0) * Math.Cos(currentAngle)
                 let y1 = hoejde / 2.0 + (hoejde / 2.0) * Math.Sin(currentAngle)
                 let x2 = hoejde / 2.0 + (hoejde / 2.0) * Math.Cos(currentAngle + r)
                 let y2 = hoejde / 2.0 + (hoejde / 2.0) * Math.Sin(currentAngle + r)
                 let omvej = if r > Math.PI then 1 else 0
-                let stykke = kageStykke ((hoejde / 2.0),(hoejde / 2.0)) (x1, y1) (x2, y2) c omvej
-                let stykkeForklaring = forklaring c ((List.length acc)/2) (Format.strengPrinter (Format.begyndelse t))
-                kagebager (stykke::stykkeForklaring::acc) (currentAngle + r) rs ts cs
+                let stykke = kageStykke ((hoejde / 2.0),(hoejde / 2.0)) (x1, y1) (x2, y2) f omvej
+                let stykkeForklaring = forklaring hoejde f ((List.length acc)/2) (Format.strengPrinter (Format.begyndelse t))
+                kagebager (stykke::stykkeForklaring::acc) (currentAngle + r) rs ts fs
     let pieChartSvg = String.concat "\n" (kagebager [] rotation radianer tekster farver)
 
     sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*2.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) pieChartSvg
@@ -58,9 +60,8 @@ let opretKurver (hoejde:float) (tekster: ordsek list) =
             laengde hoejde 10.0 hoejde (String.Join( ',',kurve |> List.map (fun (x,y) -> $"{x},{y}"))) farve
     let grundKurve = List.init 100 (fun _ -> (0., hoejde))
     let farver = ["#7C1E21";"#F7F036";"#066B35"; "#92A5AF";"#0095A0";"#BC352B"]
-    let antalKurver = terning (List.length farver)
+    let antalKurver = List.length tekster
     let svgKurver =
         [1..antalKurver] |> List.scan (fun kurve _ -> overKurve (List.map snd kurve) ((float)(terning 120))) grundKurve |> List.skip 1
-        |> List.zip (farver |> List.sortBy (fun _ -> terning 5) |> List.take antalKurver) |> List.map (fun (farve, kurve) -> svgKurve kurve farve) |> List.rev |> String.Concat
-
-    sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*2.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) ($"{xAkse} {yAkse} {svgKurver}")
+        |> List.zip (farver |> List.sortBy (fun _ -> terning 5) |> List.take antalKurver) |> List.mapi (fun i (farve, kurve) -> (svgKurve kurve farve) + (forklaring (2.*hoejde) farve i (Format.strengPrinter (Format.begyndelse tekster.[i])))) |> List.rev |> String.Concat
+    sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*4.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) ($"{svgKurver} {xAkse} {yAkse} ")
