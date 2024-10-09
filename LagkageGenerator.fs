@@ -63,5 +63,5 @@ let opretKurver (hoejde:float) (tekster: ordsek list) =
     let antalKurver = List.length tekster
     let svgKurver =
         [1..antalKurver] |> List.scan (fun kurve _ -> overKurve (List.map snd kurve) ((float)(terning 120))) grundKurve |> List.skip 1
-        |> List.zip (farver |> List.sortBy (fun _ -> terning 5) |> List.take antalKurver) |> List.mapi (fun i (farve, kurve) -> (svgKurve kurve farve) + (forklaring (2.*hoejde) farve i (Format.strengPrinter (Format.begyndelse tekster.[i])))) |> List.rev |> String.Concat
+        |> List.zip (farver |> List.sortBy (fun _ -> terning 5) |> List.take antalKurver) |> List.mapi (fun i (farve, kurve) -> (svgKurve kurve farve) + (forklaring (2.*hoejde) farve (antalKurver - i) (Format.strengPrinter (Format.begyndelse tekster.[i])))) |> List.rev |> String.Concat
     sprintf "<svg xmlns=\"http://www.w3.org/2000/svg\"  width=\"%f\" height=\"%f\" viewbox = \"0 -5 %f %f\">\n%s\n</svg>" (hoejde*4.0) (hoejde+10.0) (hoejde*2.0) (hoejde + 10.0) ($"{svgKurver} {xAkse} {yAkse} ")

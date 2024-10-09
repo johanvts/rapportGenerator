@@ -231,23 +231,14 @@ let konsekvensUdenFormat =
 
 let konsekvens = Format.begyndelse << konsekvensUdenFormat @@@ s "."
 
-(* Krumspring for at sikre at friske grafer genereres: *)
-
-let mutable private billednr = 0
-
-let billede url () =
-    let skrivnr url = 
-        billednr <- billednr + 1
-        url + "?billed=" + strseed() + "-" + billednr.ToString()
-    Format.afsnit () &&& Format.center (Format.billede (skrivnr url))
-
 let mkafsnit () =
     Format.afsnit ()
     &&& nytafsnit (Format.begyndelse (nominal ()))
     &&& konstatering ()
     &&& mksek (3 + terning 5) (vaelgLige [| konstatering; raesonnement; konsekvens |])
-//    &&& (0.25 >>> (billede "lagkage" ||| billede "kurver")) ()
-    &&& (0.25 >>> ((fun _ -> Format.center (Str (opretLagkage 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 6)) (fun _ -> nominal ())))  ((float)(terning 3))))) ||| (fun _ -> Format.center (Str (opretKurver 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 6)) (fun _ -> nominal ()))))))))()
+    &&& (0.25 >>> (
+            (fun _ -> Format.center (Str (opretLagkage 400.0 (Seq.toList (Seq.init (Math.Max(2, terning 6)) (fun _ -> nominal ()))) ((float)(terning 3))))) |||
+            (fun _ -> Format.center (Str (opretKurver 400.0 (Seq.toList (Seq.init (Math.Max(3, terning 6)) (fun _ -> nominal ()))))))))()
 
 let ``before`` e1 e2 =
     let result = e1 ()
