@@ -101,7 +101,7 @@ let lavAnker s =
      para1 "a" (concat ["name=\""; anker; "\""]) s)
 
 let  html centernavn indhold = 
-    Str "Content-type: text/html" 
+    Str "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\">" 
     &&& Str "\n" &&& Str "\n"
     &&& para0 "html" (hoved centernavn
                       &&& streg ()
