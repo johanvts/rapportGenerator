@@ -35,6 +35,6 @@ MoscowML koden er forsynet i toppen med:
 
 Hvilket jeg har søgt at leve op til ved også at angive `GNU General Public License` på dette projekt.
 
-* TODO
+* TODO TODO
 - Oversæt Dato format funktionen.
 - Der er pt. en bug i seeding af tilfældigheds generatoren, så to rapporter med samme seed er ikke ens.
