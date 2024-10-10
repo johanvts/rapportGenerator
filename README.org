@@ -1,40 +1,40 @@
 * Stokastisk Rapportgenerator (F# port)
 
-Den stokastiske rapportgenerator så dagens lys i 1996 og har siden levet hos sin forfatter, Peter Sestoft, på
+Den stokastiske rapportgenerator sÃ¥ dagens lys i 1996 og har siden levet hos sin forfatter, Peter Sestoft, pÃ¥
 
 https://www.itu.dk/people/sestoft/center.html
 
-Hvis du ikke er stødt på dette fænomen før er der en glimrende artikel om den stokastiske rapport generator hos [[https://aktuelnaturvidenskab.dk/fileadmin/Aktuel_Naturvidenskab/nr-3/AN3-2014bagside.pdf][Aktuel Naturvidenskab.]]
+Hvis du ikke er stÃ¸dt pÃ¥ dette fÃ¦nomen fÃ¸r er der en glimrende artikel om den stokastiske rapport generator hos [[https://aktuelnaturvidenskab.dk/fileadmin/Aktuel_Naturvidenskab/nr-3/AN3-2014bagside.pdf][Aktuel Naturvidenskab.]]
 
-Som det fremgår af ovenstående har rapportgeneratoren siden 2013 været hostet på en Raspberry Pi.
-Jeg tror endda jeg engang har set denne stikke ud af en bogreol på Peters kontor.
-Desværre er det ikke længere muligt at trykke "Bestil Forslag" og få hul igennem til rapportgeneratoren.
-Jeg kan kun forestille mig hvilken alt-ødelæggende effekt dette må have haft på antallet af nye bevillinger til virtuelle centre.
-Derfor har det også været vigtig for mig at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
-fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
+Som det fremgÃ¥r af ovenstÃ¥ende har rapportgeneratoren siden 2013 vÃ¦ret hostet pÃ¥ en Raspberry Pi.
+Jeg tror endda jeg engang har set denne stikke ud af en bogreol pÃ¥ Peters kontor.
+DesvÃ¦rre er det ikke lÃ¦ngere muligt at trykke "Bestil Forslag" og fÃ¥ hul igennem til rapportgeneratoren.
+Jeg kan kun forestille mig hvilken alt-Ã¸delÃ¦ggende effekt dette mÃ¥ have haft pÃ¥ antallet af nye bevillinger til virtuelle centre.
+Derfor har det ogsÃ¥ vÃ¦ret vigtig for mig at fÃ¦rdiggÃ¸re et projekt jeg startede tilbage i 2012-13 stykker: At oversÃ¦tte den stokastiske rapportgenerator
+fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldfÃ¸rt og det igen er muligt at bestille nye forslag til
 virtuelle centre, blot ved at trykke [[www][Bestil Forslag]].
 
 Johan Sivertsen, Oktober 2024
 
-* Om oversættelsen
+* Om oversÃ¦ttelsen
 
-Jeg har forsøgt at holde mig så vidt muligt til originalteksten.
-Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra
-Aktuel Naturvidenskab og på min hukommelse.
-Denne afvigelse skyldes at de oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsøge at få en php-server  op at stå.
-Bortset fra dette har jeg også været nød til at brug færrer og værrer special-operatorer, da F# bare ikke har den samme undersøttesle af disse som MoscowML.
-Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indført som nødvendigt.
+Jeg har forsÃ¸gt at holde mig sÃ¥ vidt muligt til originalteksten.
+Den vÃ¦sentligste afvigelse er at jeg har indfÃ¸rt et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer pÃ¥ billedet fra
+Aktuel Naturvidenskab og pÃ¥ min hukommelse.
+Denne afvigelse skyldes at de oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsÃ¸ge at fÃ¥ en php-server  op at stÃ¥.
+Bortset fra dette har jeg ogsÃ¥ vÃ¦ret nÃ¸d til at brug fÃ¦rrer og vÃ¦rrer special-operatorer, da F# bare ikke har den samme undersÃ¸ttesle af disse som MoscowML.
+Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indfÃ¸rt som nÃ¸dvendigt.
 
-Den oprindelige kildekode findes fortsat på linket ovenfor.
+Den oprindelige kildekode findes fortsat pÃ¥ linket ovenfor.
 MoscowML koden er forsynet i toppen med:
 
 #+begin_quote
 (* Copyright 1996 Peter Sestoft.  
-   Må kopieres og modificeres jvfr. GNU General Public License *)
+   MÃ¥ kopieres og modificeres jvfr. GNU General Public License *)
 #+end_quote
 
-Hvilket jeg har søgt at leve op til ved også at angive `GNU General Public License` på dette projekt.
+Hvilket jeg har sÃ¸gt at leve op til ved ogsÃ¥ at angive `GNU General Public License` pÃ¥ dette projekt.
 
 * TODO TODO
-- Oversæt Dato format funktionen.
-- Der er pt. en bug i seeding af tilfældigheds generatoren, så to rapporter med samme seed er ikke ens.
+- OversÃ¦t Dato format funktionen.
+- Der er pt. en bug i seeding af tilfÃ¦ldigheds generatoren, sÃ¥ to rapporter med samme seed er ikke helt ens.
