@@ -26,11 +26,13 @@ Bortset fra dette har jeg også været nød til at brug færre og værre special oper
 Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indført som nødvendigt.
 
 Den oprindelige kildekode findes fortsat på linket ovenfor.
-Denne kode er forsynet i toppen med:
-```
+MoscowML koden er forsynet i toppen med:
+
+#+begin_quote
 (* Copyright 1996 Peter Sestoft.  
    Må kopieres og modificeres jvfr. GNU General Public License *)
-```
+#+end_quote
+
 Hvilket jeg har søgt at leve op til ved også at angive `GNU General Public License` på dette projekt.
 
 * TODO
