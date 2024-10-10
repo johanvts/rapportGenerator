@@ -10,17 +10,20 @@ Som det fremgår af ovenstående har rapportgeneratoren siden 2013 været hostet på
 Jeg tror endda jeg engang har set denne stikke ud af en bogreol på Peters kontor.
 Desværre er det ikke længere muligt at trykke "Bestil Forslag" og få hul igennem til rapportgeneratoren.
 Jeg kan kun forestille mig hvilken alt-ødelæggende effekt dette må have haft på antallet af nye bevillinger til virtuelle centre.
-Derfor har det også været vigtig for mig at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker, at oversætte den stokastiske rapport generator
-fra sin oprindelige MoscowML implementation til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
+Derfor har det også været vigtig for mig at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
+fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
 virtuelle centre, blot ved at trykke [[www][Bestil Forslag]].
+
+Johan Sivertsen, Oktober 2024
 
 * Om oversættelsen
 
-Jeg har forsøgt at holde mig så vidt muligt til original teksten.
-Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lag-kage og kurve diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra
-Aktuel Naturvidenskab og min hukommelse.
-De oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsøge at få en php-server op at stå.
+Jeg har forsøgt at holde mig så vidt muligt til originalteksten.
+Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra
+Aktuel Naturvidenskab og på min hukommelse.
+Denne afvigelse skyldes at de oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsøge at få et php-server projekt op at stå.
 Bortset fra dette har jeg også været nød til at brug færre og værre special operatorer, da F# bare ikke har den samme undersøttesle af disse som MoscowML.
+Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indført som nødvendigt.
 
 Den oprindelige kildekode findes fortsat på linket ovenfor.
 
