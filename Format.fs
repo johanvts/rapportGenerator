@@ -33,14 +33,11 @@ let printer ordsek =
     let out : string -> unit  = os.Write 
     udskriv out ordsek; out "\n\n";
 
-let rec strengPrinter = function
-    | Str w -> w
-    | Tom -> ""
-    | OrdSeq (s1, s2) ->
-        let combined = $"{strengPrinter s1} {strengPrinter s2}"
-        if (String.length combined) > (linielgd / 2)
-        then  $"{strengPrinter s1}..."
-        else  combined
+let rec strengPrinter ordsek =
+    let sb =  System.Text.StringBuilder()
+    let out (s:string) = sb.Append(s) |> ignore
+    udskriv out ordsek;
+    sb.ToString()
     
 let skaerm ordsek =
     let out = printf "%s"
