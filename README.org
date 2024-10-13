@@ -22,7 +22,7 @@ Jeg har forsøgt at holde mig så vidt muligt til originalteksten.
 Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra
 Aktuel Naturvidenskab og på min hukommelse.
 Denne afvigelse skyldes at de oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsøge at få en php-server  op at stå.
-Bortset fra dette har jeg også været nød til at brug færrer og værrer special-operatorer, da F# bare ikke har den samme undersøttesle af disse som MoscowML.
+Bortset fra dette har jeg også været nød til at brug færrer og værrer special-operatorer, da F# bare ikke har den samme muligheder her (som ex. `||$*` operator), som med MoscowML.
 Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indført som nødvendigt.
 
 Den oprindelige kildekode findes fortsat på linket ovenfor.
