@@ -1,6 +1,6 @@
 * Stokastisk Rapportgenerator (F# port)
 
-Den stokastiske rapportgenerator så dagens lys i 1996 og har siden levet hos sin forfatter, [[Peter Sestoft][https://www.itu.dk/people/sestoft/]], på
+Den stokastiske rapportgenerator så dagens lys i 1996 og har siden levet hos sin forfatter, [[https://www.itu.dk/people/sestoft/][Peter Sestoft]], på:
 
 https://www.itu.dk/people/sestoft/center.html
 
