@@ -9,8 +9,8 @@ Hvis du ikke er stødt på dette fænomen før er der en glimrende artikel om de
 Som det fremgår af ovenstående har rapportgeneratoren siden 2013 været hostet på en Raspberry Pi.
 Jeg tror endda jeg engang har set denne stikke ud af en bogreol på Peters kontor.
 Desværre er det ikke længere muligt at trykke "Bestil Forslag" og få hul igennem til rapportgeneratoren.
-Jeg kan kun forestille mig hvilken alt-ødelæggende effekt dette må have haft på antallet af nye bevillinger til virtuelle centre.
-Derfor har det også været vigtig for mig at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
+Det må nødvendigvis have haft en alt-ødelæggende effekt på antallet af bevillinger til nye virtuelle centre.
+Derfor har det også ansporet mig til at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
 fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
 virtuelle centre, blot ved at trykke [[https://rapportrunner.azurewebsites.net/api/bestilrapport][Bestil Forslag]].
 
