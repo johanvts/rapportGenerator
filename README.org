@@ -10,8 +10,8 @@ Som det fremgår af ovenstående har rapportgeneratoren siden 2013 været hostet
 Jeg tror endda jeg engang har set denne stikke ud af en bogreol på Peters kontor.
 Desværre er det ikke længere muligt at trykke "Bestil Forslag" og få hul igennem til rapportgeneratoren.
 Det må nødvendigvis have haft en alt-ødelæggende effekt på antallet af bevillinger til nye virtuelle centre.
-Derfor har det også ansporet mig til at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
-fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
+Derfor har det også ansporet mig til at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator, fra sit oprindelige MoscowML til F#.
+Jeg er glad for at kunne meddele at projektet nu er fuldført, og at det igen er muligt at bestille nye forslag til
 virtuelle centre, blot ved at trykke [[https://rapportrunner.azurewebsites.net/api/bestilrapport][Bestil Forslag]].
 
 Johan Sivertsen, Oktober 2024
