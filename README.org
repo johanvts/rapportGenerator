@@ -1,6 +1,6 @@
 * Stokastisk Rapportgenerator (F# port)
 
-Den stokastiske rapportgenerator så dagens lys i 1996 og har siden levet hos sin forfatter, Peter Sestoft, på
+Den stokastiske rapportgenerator så dagens lys i 1996 og har siden levet hos sin forfatter, [[https://www.itu.dk/people/sestoft/][Peter Sestoft]], på:
 
 https://www.itu.dk/people/sestoft/center.html
 
@@ -9,9 +9,9 @@ Hvis du ikke er stødt på dette fænomen før er der en glimrende artikel om de
 Som det fremgår af ovenstående har rapportgeneratoren siden 2013 været hostet på en Raspberry Pi.
 Jeg tror endda jeg engang har set denne stikke ud af en bogreol på Peters kontor.
 Desværre er det ikke længere muligt at trykke "Bestil Forslag" og få hul igennem til rapportgeneratoren.
-Jeg kan kun forestille mig hvilken alt-ødelæggende effekt dette må have haft på antallet af nye bevillinger til virtuelle centre.
-Derfor har det også været vigtig for mig at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator
-fra sit oprindelige MoscowML til F#. Jeg er glad for at kunne meddele at projektet nu er fuldført og det igen er muligt at bestille nye forslag til
+Det må nødvendigvis have haft en alt-ødelæggende effekt på antallet af bevillinger til nye virtuelle centre.
+Derfor har det også ansporet mig til at færdiggøre et projekt jeg startede tilbage i 2012-13 stykker: At oversætte den stokastiske rapportgenerator, fra sit oprindelige MoscowML til F#.
+Jeg er glad for at kunne meddele at projektet nu er fuldført, og at det igen er muligt at bestille nye forslag til
 virtuelle centre, blot ved at trykke [[https://rapportrunner.azurewebsites.net/api/bestilrapport][Bestil Forslag]].
 
 Johan Sivertsen, Oktober 2024
@@ -19,10 +19,9 @@ Johan Sivertsen, Oktober 2024
 * Om oversættelsen
 
 Jeg har forsøgt at holde mig så vidt muligt til originalteksten.
-Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra
-Aktuel Naturvidenskab og på min hukommelse.
+Den væsentligste afvigelse er at jeg har indført et nyt modul til at tegne lagkage og kurve-diagrammerne med SVG. Jeg har baseret mine figurer på billedet fra [[https://aktuelnaturvidenskab.dk/fileadmin/Aktuel_Naturvidenskab/nr-3/AN3-2014bagside.pdf][Aktuel Naturvidenskab.]] og på min hukommelse.
 Denne afvigelse skyldes at de oprindelige diagrammer blev tegnet af et php-bibliotek og jeg havde meget mere lyst til at skrive mine egne end forsøge at få en php-server  op at stå.
-Bortset fra dette har jeg også været nød til at brug færrer og værrer special-operatorer, da F# bare ikke har den samme undersøttesle af disse som MoscowML.
+Bortset fra dette har jeg også været nød til at brug færrer og værrer special-operatorer, da F# bare ikke har den samme muligheder her (som ex. en `||$*` operator), som med MoscowML.
 Ligeledes har F# heller ikke en indbygget ``before`` operator, men den har jeg blot indført som nødvendigt.
 
 Den oprindelige kildekode findes fortsat på linket ovenfor.
