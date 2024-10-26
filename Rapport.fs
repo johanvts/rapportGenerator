@@ -294,5 +294,8 @@ let rapport () =
                        @@@ anbefaling center
                        @@@ forfattere
                        @@@ kolofon) ()
-    Format.html (Str "Forslag til virtuelt center for" &&& center)
-                (indhold () &&& tekst)
+    let rapport = Format.html (Str "Forslag til virtuelt center for" &&& center) (indhold () &&& tekst)
+    niveau <- 0 (* afsnittets niveau: 0, 1, 2, ... *)
+    overskrifter <- ([] : partial)
+    rapport
+
