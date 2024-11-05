@@ -74,7 +74,15 @@ let adjektiver =
       RegA("videnskabelig", "-t", "-e");
       RegA("vigtig", "-t", "-e");
       RegA("virtuel", "-t", "-le");
-      RegA("økonomisk", "-", "-e")|];         
+      RegA("økonomisk", "-", "-e")|];
+
+let haddock = [|
+  RegA("forloren", "-t", "forlorne");
+  RegA("væggetøjsbefængt", "-", "-e")               
+  RegA("billig", "-t", "-e")
+  RegA("brutal", "-t", "-e")
+  RegA("modbydelig", "-t", "-e")
+|]      
 
 let boej (RegA(fkent, itkent, flt_bes)) form koen =
     match form, koen with
@@ -82,6 +90,6 @@ let boej (RegA(fkent, itkent, flt_bes)) form koen =
     | (Ubs, Ent), Itk -> tilfoej fkent itkent
     | _ -> tilfoej fkent flt_bes
 
-let vaelg () = vaelgfra adjektiver
+let vaelg () = vaelgfra (Array.concat [adjektiver; haddock])
 
 let vaelgikke forbudt = vaelgikke forbudt adjektiver
