@@ -44,8 +44,8 @@ let strseed () = seed.ToString("F0")
 let skrivseed () = Str (strseed())
 let saetseed s = initialiser s
 
-let vaelgfra (vec: 'a array) = 
-    vec.[randgen.Next(vec.Length)]
+let vaelgfra vec  =
+    Array.randomChoiceWith randgen vec
 
 let rec vaelgikke forbudt vec =
     let res = vaelgfra vec
