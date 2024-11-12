@@ -40,8 +40,6 @@ let private initialiser s =
     seed <- s
     randgen <- Random(int s)
 
-initialiser (normaliser (randgen.NextDouble()))
-
 let strseed () = seed.ToString("F0")
 let skrivseed () = Str (strseed())
 let saetseed s = initialiser s
